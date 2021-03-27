@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../static/test_style.css">
+    <title>Welcome!</title>
+</head>
+<body>
+    <h1>Welcome to Car-eer Highway!</h1>
+    <div class="wrapper">
+        <ul>
+    <li><a href="{{url_for('index')}}">Home</a></li> <!-- Home button -->
+    <li>About</li> <!-- About page -->
+    <li>ECG <!-- Dropdown to  ECG Services -->
+                <ul>
+    <li>Overall</li> <!-- Overall page -->
+    <li>Education <!-- Dropdown to specific education levels -->
+                        <ul>
+    <li>Secondary</li>
+    <li>JC/Poly</li>
+    <li>University</li>
+    </ul>
+    </li>
+    
+    <li><a href="{{url_for('survey_start')}}">Survey</a></li> <!-- ECG Survey -->
+    </ul>
+    </li>
+    
+    <li>Chat With Profs
+        <ul>
+    <li>Secondary</li>
+    <li>JC/Poly</li>
+    <li>University</li>
+        </ul>
+    </li>
+    <li>Contact us!</li>
+    </ul>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What kind of car are you?</title>
+    <link rel="stylesheet" href="../static/form_style.css"> 
+</head>
+<body>
+    <form action="{{ url_for('personality') }}">
+        <h1>What kind of car are you?</h1>
+        <p>Do you like interacting with people (e.g. talking to strangers) ?</p>
+        <input type='radio' name='interaction' value="yes" id='yesid'><label for="yesid">Yes</label><br>
+        <input type='radio' name='interaction' value="no" id='noid'><label for="noid">No</label>
+
+        <p>Do you like working with machines or other hands-on classes (e.g. at the D&T lab or science practicals)</p>
+        <input type='radio' name='prac' value="yes" id='yes_id'><label for="yes_id">Yes</label><br>
+        <input type='radio' name='prac' value="no" id='no_id'><label for="no_id">No</label>
+
+        <p>Do you like to look at data (e.g. graphs and charts) and interpret data?</p>
+        <input type='radio' name='data' value="yes" id='yes.id'><label for="yes.id">Yes</label><br>
+        <input type='radio' name='data' value="no" id='no.id'><label for="no.id">No</label>
+
+        <p>Do you enjoy different art forms (e.g. poetry and drawing) and think out of the box?
+        </p>
+        <input type='radio' name='arts' value="yes" id='yes-id'><label for="yes-id">Yes</label><br>
+        <input type='radio' name='arts' value="no" id='no-id'><label for="no-id">No</label>
+
+        <br>
+        <br>
+        <input type='submit'>
+        <br>
+        <br>
+    </form>
+
+    <table class=center border=black>
+        <tr>
+            <td align=middle>
+                    <image src="../static/social_car.jpeg" width=100px></image>
+            </td>
+            <td align=middle><image src="../static/practical_car.png" width=100px></image>
+            </td>
+            <td align=middle><image src="../static/data_car.png" width=100px></image>
+            </td> 
+            <td align=middle><image src="../static/creative_car.jpeg" width=100px></image>
+            </td>
+        </tr>
+        <tr>
+            <td align=middle>Social Car</td>
+            <td align=middle>Practical Car</td>
+            <td align=middle>Data Car</td>
+            <td align=middle>Creative Car</td>
+        </tr>
+    </table>
+</body>
+</html>
