@@ -2,9 +2,9 @@ import sqlite3
 from sqlite3 import Error
 
 
-def connect_sql(name):
+def connect_sql(dbfile):
     try:
-        conn = sqlite3.connect(name)
+        conn = sqlite3.connect(dbfile)
         print("connect successful")
         return(conn)
     except Error as e:
@@ -13,7 +13,7 @@ def connect_sql(name):
 
 def read_data(conn):
     try:
-        print("I")
+        print("in try")
         cursor = conn.execute("SELECT * FROM Chat")
         rows = cursor.fetchall()
         print(rows)
