@@ -72,6 +72,9 @@ def new():
         db.close()
         
         return redirect(url_for("chat_with_profs"))
+@app.route('/login/')
+def login():
+    return render_template("login.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

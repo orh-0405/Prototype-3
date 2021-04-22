@@ -68,4 +68,12 @@
     top: 0;
     position: absolute;
     }
-    
+.login {
+    margin: 25px 0 5px 0; 
+	width:57px; 
+	height: 14px; 
+
+	text-indent: 100%;
+	white-space: nowrap;
+	
+}
