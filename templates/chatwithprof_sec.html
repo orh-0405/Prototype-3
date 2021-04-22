@@ -4,14 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style_test.css">
     <title>Document</title>
 </head>
 <body>
     <h1>Chat with profs</h1>
-    <form action="{{ url_for('chat_with_profs') }}">
-        <input type="text" value = "comments">
-        <input type="submit" value="Ask">
-    </form>
+    <table border = "1px" width = "60%">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Message</th>
+            <th>Time</th>
+        </tr>
+        {% for row in data%}
+        <tr>
+            <td>{{ row["ID"] }}</td>
+            <td>{{ row["Name"] }}</td>
+            <td>{{ row["Message"] }}</td>
+            <td>{{ row["Time"] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('new') }}" >Write new message</a>
 </body>
 </html>
