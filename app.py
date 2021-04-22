@@ -1,4 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
+from chat_with_prof import get_db
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -47,8 +49,29 @@ def courses():
 
 @app.route('/chat_with_profs/')
 def chat_with_profs():
-    return render_template('chatwithprof_sec.html')
+    db = get_db()
+    query = "SELECT * FROM Chat"
+    cursor = db.execute(query)
+    data = cursor.fetchall()
+    db.close()
+    return render_template('chatwithprof_sec.html', data = data)
 
+@app.route("/new/", methods = ["GET", "POST"])
+def new():
+    if request.method == "GET":
+        return render_template("chat with profs new.html")
+    else:
+        print(request.form)
+        db = get_db()
+        query = "INSERT INTO Chat (Name, Message, Time) VALUES(?,?,?)"
+        now = datetime.now()  #gets current time
+        current_time = now.strftime("%H:%M")
+        db.execute(query, (request.form["Name"], request.form["Message"], current_time))
+
+        db.commit()
+        db.close()
+        
+        return redirect(url_for("chat_with_profs"))
 
 if __name__ == "__main__":
     app.run(debug=True)
