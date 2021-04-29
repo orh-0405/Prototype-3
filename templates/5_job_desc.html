@@ -4,21 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor</title>
+    <title>{{job_chosen}}</title>
     <link rel="stylesheet" href="../static/form_style.css">
 </head>
 <body>
-    <h1>Doctor</h1>
+    <h1>{{job_chosen}}</h1>
     <img src='{{pic}}' width=360px>
-    <p>
-        As a doctor…
-You are a frontliner in times of crisis, and your responsibility is to ensure that your patient will be treated with utmost care
-You are responsible for diagnosing and treating a patient’s condition with the best care and help them recover
-You have to do your best to help a patient no matter what it takes 
-You have to be calm in times of crisis 
-You have to treat all patients equally and not let prejudice affect your judgement 
-    </p>
-    <form action="{{ url_for('courses') }}">
+    {%for desc in descriptions%}
+        <p>
+            {{desc}}
+        </p>
+    {%endfor%}
+    <form action="{{ url_for('job_info', job_chosen=job_chosen, db_name=db_name) }}" method="POST">
         <input type="submit" value="Get my courses!">
     </form>
 </body>
