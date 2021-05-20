@@ -19,14 +19,14 @@
             </tr>
             {% for row in data%}
             <tr>
-                <td>{{ row["ID"] }}</td>
-                <td>{{ row["Name"] }}</td>
-                <td>{{ row["Message"] }}</td>
-                <td>{{ row["Time"] }}</td>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
             </tr>
             {% endfor %}
         </table>
-        <form action="{{ url_for('new') }}" method = "POST">
+        <form action="{{ url_for('chat_with_profs') }}" method = "POST">
             <p>
                 User Name:
                 <input type="text" name = "Name" value = "{{ user }}">
@@ -38,6 +38,13 @@
             <p>
                 <input type="submit" value = "Submit">
             </p>
+            <p><input type="text" name = "db" value = "{{db_name}}" hidden></p>
+            <p><input type="text" name = "choice" value = "{{choice}}" hidden></p>
+            {%if stu != ""%}
+            <p><input type="text" name = "stu" value = "{{stu}}" hidden></p>
+            {%else%}
+            <p><input type="text" name = "stu" value = "stu" hidden></p>
+            {%endif%}
         </form>
         {%else%}
         <table border = "1px" width = "60%">
@@ -60,6 +67,13 @@
             <p>
                 <input type="submit" value = "Submit">
             </p>
+            <p><input type="text" name = "db" value = "{{db_name}}" hidden></p>
+            <p><input type="text" name = "choice" value = "{{choice}}" hidden></p>
+            {%if stu != ""%}
+            <p><input type="text" name = "stu" value = "{{stu}}" hidden></p>
+            {%else%}
+            <p><input type="text" name = "stu" value = "stu" hidden></p>
+            {%endif%}
         </form>
         {%endif%}
     {%else%}

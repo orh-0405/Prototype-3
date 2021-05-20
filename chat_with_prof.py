@@ -1,6 +1,6 @@
 import os.path, sqlite3
 from sqlite3 import Error
-import datetime
+from datetime import datetime
 
 def get_db(Dbname):
     
@@ -68,7 +68,7 @@ def get_account_type():
 
 def get_user():
     db = get_db("Users.db")
-    query = "SELECT Name FROM Users WHERE Login = 1"
+    query = "SELECT Name FROM User WHERE Login = 1"
     try:
         cursor = db.execute(query)
         data = cursor.fetchone()
@@ -106,9 +106,12 @@ def list_of_stu():
     db.close()
     return(data)
 
-def new(name, message):
-    db = get_db()
-    user = get_user()
+def new(name, message, db_name, stu):
+    db = get_db(db_name)
+    if stu == "stu":
+        user = get_user()
+    else:
+        user = stu
     query = "INSERT INTO {} (Name, Message, Time) VALUES(?,?,?)".format("Chat" + user)
     now = datetime.now()  #gets current time
     current_time = now.strftime("%H:%M")
@@ -116,5 +119,13 @@ def new(name, message):
 
     db.commit()
     db.close()
+
+def set_default():
+    db = get_db("Users.db")
+    try:
+        query = "UPDATE main.User SET Login = 0 WHERE Login = 1"
+    except:
+        pass
+
 #if not os.path.isfile("chat_with_prof.db"):
 #    create_db(db_file_name)

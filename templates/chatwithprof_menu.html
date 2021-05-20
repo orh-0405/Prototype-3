@@ -9,7 +9,7 @@
 <body>
     <form action="{{ url_for('chat_with_profs') }}">
     <select name="name" id="">
-    {%for i in prof_names%}
+    {%for i in names%}
     <option value="{{ i }}">{{ i }}</option>
     {%endfor%}
     </select>

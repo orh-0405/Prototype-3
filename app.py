@@ -1,12 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for
-from chat_with_prof import get_user, create_table, get_db, checkpassword, get_account_type, list_of_prof,list_of_stu, new
+from chat_with_prof import get_user, create_table, get_db, checkpassword, get_account_type, list_of_prof,list_of_stu, new, set_default
 from datetime import datetime
+import sqlite3
+from flask_socketio import SocketIO
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
+    set_default()
     return render_template('home.html')
 
 
@@ -50,6 +53,8 @@ def courses():
 def chat_with_prof_menu():
     if get_account_type() == "stu":
         prof_names = list_of_prof()
+        print(prof_names)
+        print(get_user())
         return render_template("chatwithprof_menu.html", names = prof_names)
     elif get_account_type() == "prof":
         stu_names = list_of_stu()
@@ -63,32 +68,41 @@ def chat_with_profs():
             if get_account_type() == "stu":
                 prof = request.args["name"]
                 try:
-                    create_table("Chat" + user, "Prof" + prof)
-                    return render_template('chatwithprof_sec.html', data = "data", user = user)
+                    create_table("Chat" + str(user), "Prof" + prof)
+                    return render_template('chatwithprof_sec.html', data = "data", user = str(user))
                 except:
-                    db = get_db("Prof" + prof)
-                    query = "SELECT * FROM {}".format("Chat" + user)
+                    db_name = "Prof" + prof + ".db"
+                    db = get_db(db_name)
+                    print(prof)
+                    print("A")
+                    print("Chat" + str(user))
+                    query = "SELECT * FROM {}".format("Chat" + str(user))
                     cursor = db.execute(query)
                     data = cursor.fetchall()
                     db.close()
-                    return render_template('chatwithprof_sec.html', data = data, user = user)
+                    print(data)
+                    return render_template('chatwithprof_sec.html', data = data, user = str(user), db_name = db_name, choice = prof, stu = "")
             elif get_account_type() == "prof":
                 stu = request.args["name"]
                 try:
                     create_table("Chat" + stu, "Prof" + user)
                     return render_template('chatwithprof_sec.html', data = "data", user = user)
                 except:
-                    db = get_db("Prof" + user)
+                    db_name = "Prof" + user + ".db"
+                    db = get_db(db_name)
                     query = "SELECT * FROM {}".format("Chat" + stu)
                     cursor = db.execute(query)
                     data = cursor.fetchall()
                     db.close()
-                    return render_template('chatwithprof_sec.html', data = data, user = user)
+                    return render_template('chatwithprof_sec.html', data = data, user = user, db_name = db_name, choice = stu, stu = stu)
         else:
             name = request.form["Name"]
             message = request.form["Message"]
-            new(name, message)
-            return redirect(url_for("chatwithprof_sec.html")) 
+            db = request.form["db"]
+            choice = request.form["choice"]
+            stu = request.form["stu"]
+            new(name, message, db, stu)
+            return redirect(url_for("chat_with_profs", name = choice)) 
             
     else:
         return render_template('chatwithprof_sec.html', user = user)
@@ -119,6 +133,7 @@ def login():
 @app.route("/signup/")
 def signup():
     return "pass"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
