@@ -2,6 +2,8 @@ import os.path, sqlite3
 from sqlite3 import Error
 from datetime import datetime
 
+from flask import templating
+
 def get_db(Dbname):
     
     db = sqlite3.connect(Dbname, check_same_thread= False)
@@ -14,31 +16,34 @@ def create_table(table_name, db_name):
     db_file_name = os.path.join(curr_dir, "{}.db".format(db_name))
     db = get_db(db_name)
     query = '''
-    CREATE TABLE {}
-    (id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT,
-    email TEXT,
-    message TEXT)
+    "ID"	INTEGER,
+	"Name"	TEXT NOT NULL,
+	"Message"	TEXT NOT NULL,
+	"Time"	TEXT NOT NULL,
+	PRIMARY KEY("ID" AUTOINCREMENT)
     '''.format(table_name)
     db.execute(query)
+    db.commit()
     print("Table created successfully")
     db.close()
 
 def checkpassword(username, password):
     #db = get_db("Users.db")
     db = sqlite3.connect("Users.db")
-    query = "SELECT Password FROM User WHERE Name = 'A'"
+    query = "SELECT Password FROM User WHERE Name = '{}'".format(username)
     try:
-        print("I")
+        print("H")
         cursor = db.execute(query)
-        print("#")
         data = cursor.fetchone()
+        print("J")
     except Error as e:
-        db.close()
-        return(e)
-    if data == None:
-        db.close()
-        return("UNF")
+        print(e)
+        if str(e)[:15] == "no such column:":
+            db.close()
+            return("UNF")
+        else:
+            db.close()
+            return(e)
     if password == data[0]:
         query = "UPDATE main.User SET Login = 1 WHERE Name  = ?"
         db.execute(query, (username,))
@@ -123,9 +128,35 @@ def new(name, message, db_name, stu):
 def set_default():
     db = get_db("Users.db")
     try:
-        query = "UPDATE main.User SET Login = 0 WHERE Login = 1"
+        query = "UPDATE main.User SET Login = '0' WHERE Login = '1'"
+        db.execute(query)
+        db.commit()
+        db.close()
     except:
         pass
+
+def account_exist(Name):
+    db = get_db("Users.db")
+    query = "SELECT Name From User"
+    cursor = db.execute(query)
+    data = []
+    temp = cursor.fetchall()
+    for i in temp:
+        data.append(i["Name"])
+    db.close()
+    for i in data:
+        if i == Name:
+            return True
+    return False
+
+def new_user(name, password, acc):
+    db = get_db("Users.db")
+    tup1 = (name, acc, password)
+    tup = str(tup1)
+    query = "INSERT INTO User(Name, acc, Password) VALUES {}".format(tup)
+    db.execute(query)
+    db.commit()
+    db.close()
 
 #if not os.path.isfile("chat_with_prof.db"):
 #    create_db(db_file_name)

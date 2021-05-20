@@ -1,26 +1,19 @@
 from flask import Flask, render_template, request, redirect, url_for
-from chat_with_prof import get_user, create_table, get_db, checkpassword, get_account_type, list_of_prof,list_of_stu, new, set_default
-from datetime import datetime
+from chat_with_prof import get_user, create_table, get_db, checkpassword, get_account_type, list_of_prof,list_of_stu, new, set_default, account_exist, new_user
 import os.path
-import sqlite3
 from survey import open_survey
-#from flask_socketio import SocketIO
+
 
 curr_dir = os.path.dirname(__file__)
 
-def get_db(db_name):
-    db_file_name = os.path.join(curr_dir, db_name)
-    db = sqlite3.connect(db_file_name, check_same_thread=False) #db, db3, sqlite, sqlite3
-    print("Opened database successfully")#;
-    db.row_factory = sqlite3.Row
-    return db
+
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    set_default()
+    
     return render_template('home.html')
 
 @app.route('/about/')
@@ -127,7 +120,8 @@ def chat_with_profs():
             if get_account_type() == "stu":
                 prof = request.args["name"]
                 try:
-                    create_table("Chat" + str(user), "Prof" + prof)
+                    create_table("Chat" + str(user), "Prof" + prof + ".db")
+                    print("i")
                     return render_template('chatwithprof_sec.html', data = "data", user = str(user))
                 except:
                     db_name = "Prof" + prof + ".db"
@@ -175,12 +169,11 @@ def login():
         return render_template("login.html", checked = "1")
     else:
         username = request.form["username"]
+        print(username)
         password = request.form["password"]
         message = checkpassword(username, password)
         if message == "S":
             result = "pass"
-            
-            
         elif message == "PC":
             result = "Password is not correct please retry"
         elif message == "UNF":
@@ -189,10 +182,31 @@ def login():
             result = message
         return render_template("login.html", checked ="0", message = result)
 
-@app.route("/signup/")
+@app.route("/signup/", methods = ["GET", "POST"])
 def signup():
-    return "pass"
+    if request.method == "GET":
+        return render_template("sign_up.html", checked = "0")
+    else:
+        name = request.form["username"]
+        password = request.form["password"]
+        confirmpassword = request.form["confirmpassword"]
+        acc = request.form["acc"]
+        if password == confirmpassword:
+            print(account_exist(name))
+            if account_exist(name) == False:
+                new_user(name, password, acc)
+                return render_template("sign_up.html", checked = "1", message = "pass")
+            else:
+                print("I")
+                return render_template("sign_up.html", checked = "1", message = "User exist try another name")
+        else:
+            return render_template("sign_up.html", checked = "1", message = "Password does not match")
+
 
 
 if __name__ == "__main__":
+    run_once = 0
+    if run_once == 0:
+        set_default()
+        run_once = 1
     app.run(debug=True)
