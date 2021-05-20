@@ -68,12 +68,22 @@
     top: 0;
     position: absolute;
     }
-.login {
-    margin: 25px 0 5px 0; 
-	width:57px; 
-	height: 14px; 
+    .login {
+        margin: 25px 0 5px 0; 
+        width:57px; 
+        height: 14px; 
 
-	text-indent: 100%;
-	white-space: nowrap;
-	
-}
+        text-indent: 100%;
+        white-space: nowrap;
+        
+    }
+    .test{
+        margin-block-start: 5%;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #fff;
+        padding: 2px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }

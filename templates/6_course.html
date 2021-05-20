@@ -4,41 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/form_style.css">
     <title>Courses</title>
     
 </head>
 <body>
-    <h1>Here are the possible courses to get your job!</h1>
-    <h2>NTU</h2>
+    <h1>Here are the criteria required for different schools to get your job!</h1>
+    {% for row in data %}
+    <h3>{{row[0]}}: {{row[1][0]}}</h3>
+    <h4>{{row[2][0]}}</h4>
+    {%for string in row[2][1:]%}
+    <p>- {{string}}</p>
+    {%endfor%}
+    {%endfor%}
     <p>
-        GCE ‘A’ Level
-        <ul>
-            <li>
-                at least two passes in subjects at H2 level and attempted General Paper (GP) or Knowledge & Inquiry (KI) in the same sitting;
-            </li> <br>
-            <li>
-                meet one of the following Mother Tongue Language (MTL) requirement:
-            </li><br>
-            <ol>
-                <li>a minimum of 'S' grade in H1 MTL or General Studies in Chinese or H2 Mother Tongue Language & Literature (MTLL) taken at 'A' level; or</li> 
-                <li>pass in MTL ‘B’ syllabus taken at ‘A’ level; or
-                a minimum of D7 in Higher MTL taken at 'O' level</li>
-            </ol>
-        </ul>
-
-<p>Medicine</p>
-<ul>
-    <li>H2 level pass in Chemistry and</li>
-    <li>H2 level pass in Physics/Biology</li>
-</ul>
-
-<p>Admission Assessment:</p>
-<ul>
-    <li>Academics results</li>
-    <li>Personal statement</li>
-    <li>Two online referee reports</li>
-</ul>
+        
     </p>
+    
+    <div>
+        <br>
+        <p>For more information, please click the following links:</p>
+        {% for row in data %}
+        {%for ref in row[4]%}
+        {%if ref != " "%}
+        <p><a href={{ref}}>{{ref}}</a></p>
+        {%endif%}
+        {%endfor%}
+        {%endfor%}
+    </div>
     <form action="{{ url_for('index') }}">
         <input type="submit" value="back to home">
     </form>
