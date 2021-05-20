@@ -8,22 +8,77 @@
 </head>
 <body>
     <h1>Chat with profs</h1>
-    <table border = "1px" width = "60%">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Message</th>
-            <th>Time</th>
-        </tr>
-        {% for row in data%}
-        <tr>
-            <td>{{ row["ID"] }}</td>
-            <td>{{ row["Name"] }}</td>
-            <td>{{ row["Message"] }}</td>
-            <td>{{ row["Time"] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <a href="{{ url_for('new') }}" >Write new message</a>
+    {%if user != "DLI"%}
+        {%if data != "data"%}
+        <table border = "1px" width = "60%">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Message</th>
+                <th>Time</th>
+            </tr>
+            {% for row in data%}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <form action="{{ url_for('chat_with_profs') }}" method = "POST">
+            <p>
+                User Name:
+                <input type="text" name = "Name" value = "{{ user }}">
+            </p>
+            <p>
+                Message:
+                <textarea name="Message" cols="30" rows="10"></textarea>
+            </p>
+            <p>
+                <input type="submit" value = "Submit">
+            </p>
+            <p><input type="text" name = "db" value = "{{db_name}}" hidden></p>
+            <p><input type="text" name = "choice" value = "{{choice}}" hidden></p>
+            {%if stu != ""%}
+            <p><input type="text" name = "stu" value = "{{stu}}" hidden></p>
+            {%else%}
+            <p><input type="text" name = "stu" value = "stu" hidden></p>
+            {%endif%}
+        </form>
+        {%else%}
+        <table border = "1px" width = "60%">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Message</th>
+                <th>Time</th>
+            </tr>
+        </table>
+        <form action="{{ url_for('chat_with_profs') }}" method = "POST">
+            <p>
+                User Name:
+                <input type="text" name = "Name" value = "{{ user }}">
+            </p>
+            <p>
+                Message:
+                <textarea name="Message" cols="30" rows="10"></textarea>
+            </p>
+            <p>
+                <input type="submit" value = "Submit">
+            </p>
+            <p><input type="text" name = "db" value = "{{db_name}}" hidden></p>
+            <p><input type="text" name = "choice" value = "{{choice}}" hidden></p>
+            {%if stu != ""%}
+            <p><input type="text" name = "stu" value = "{{stu}}" hidden></p>
+            {%else%}
+            <p><input type="text" name = "stu" value = "stu" hidden></p>
+            {%endif%}
+        </form>
+        {%endif%}
+    {%else%}
+        <p>Please login Before use</p>
+        <a href="{{ url_for('Login') }}">Login</a>
+    {%endif%}
 </body>
 </html>
