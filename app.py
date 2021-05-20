@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from chat_with_prof import get_db
+from chat_with_prof import get_user, create_table, get_db, checkpassword, get_account_type, list_of_prof,list_of_stu, new
 from datetime import datetime
 
 app = Flask(__name__)
@@ -46,35 +46,79 @@ def doctor():
 def courses():
     return render_template('6_course.html')
 
+@app.route('/chat_with_prof_menu/')
+def chat_with_prof_menu():
+    if get_account_type() == "stu":
+        prof_names = list_of_prof()
+        return render_template("chatwithprof_menu.html", names = prof_names)
+    elif get_account_type() == "prof":
+        stu_names = list_of_stu()
+        return render_template("chatwithprof_menu.html", names = stu_names)
 
-@app.route('/chat_with_profs/')
+@app.route('/chat_with_profs/', methods = ["POST", "GET"])
 def chat_with_profs():
-    db = get_db()
-    query = "SELECT * FROM Chat"
-    cursor = db.execute(query)
-    data = cursor.fetchall()
-    db.close()
-    return render_template('chatwithprof_sec.html', data = data)
-
-@app.route("/new/", methods = ["GET", "POST"])
-def new():
-    if request.method == "GET":
-        return render_template("chat with profs new.html")
+    user = get_user()
+    if user != "DLI":
+        if request.method == "GET":
+            if get_account_type() == "stu":
+                prof = request.args["name"]
+                try:
+                    create_table("Chat" + user, "Prof" + prof)
+                    return render_template('chatwithprof_sec.html', data = "data", user = user)
+                except:
+                    db = get_db("Prof" + prof)
+                    query = "SELECT * FROM {}".format("Chat" + user)
+                    cursor = db.execute(query)
+                    data = cursor.fetchall()
+                    db.close()
+                    return render_template('chatwithprof_sec.html', data = data, user = user)
+            elif get_account_type() == "prof":
+                stu = request.args["name"]
+                try:
+                    create_table("Chat" + stu, "Prof" + user)
+                    return render_template('chatwithprof_sec.html', data = "data", user = user)
+                except:
+                    db = get_db("Prof" + user)
+                    query = "SELECT * FROM {}".format("Chat" + stu)
+                    cursor = db.execute(query)
+                    data = cursor.fetchall()
+                    db.close()
+                    return render_template('chatwithprof_sec.html', data = data, user = user)
+        else:
+            name = request.form["Name"]
+            message = request.form["Message"]
+            new(name, message)
+            return redirect(url_for("chatwithprof_sec.html")) 
+            
     else:
-        print(request.form)
-        db = get_db()
-        query = "INSERT INTO Chat (Name, Message, Time) VALUES(?,?,?)"
-        now = datetime.now()  #gets current time
-        current_time = now.strftime("%H:%M")
-        db.execute(query, (request.form["Name"], request.form["Message"], current_time))
+        return render_template('chatwithprof_sec.html', user = user)
 
-        db.commit()
-        db.close()
-        
-        return redirect(url_for("chat_with_profs"))
-@app.route('/login/')
+
+@app.route('/login/', methods = ["POST", "GET"])
 def login():
-    return render_template("login.html")
+    message = ""
+    result = ""
+    if request.method == "GET":
+        return render_template("login.html", checked = "1")
+    else:
+        username = request.form["username"]
+        password = request.form["password"]
+        message = checkpassword(username, password)
+        if message == "S":
+            result = "pass"
+            
+            
+        elif message == "PC":
+            result = "Password is not correct please retry"
+        elif message == "UNF":
+            result = "username not found"
+        else:
+            result = message
+        return render_template("login.html", checked ="0", message = result)
+
+@app.route("/signup/")
+def signup():
+    return "pass"
 
 if __name__ == "__main__":
     app.run(debug=True)
