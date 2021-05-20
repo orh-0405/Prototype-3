@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../static/test_style.css">
-    
     <title>Welcome!</title>
 </head>
 <body>
-    <h1>Welcome to Car-eer Highway!</h1>
+    <h1 class="header">Welcome to Car-eer Highway!</h1>
     <div class="wrapper">
         <ul>
     <li><a href="{{url_for('index')}}">Home</a></li> <!-- Home button -->
@@ -28,7 +27,7 @@
     
     <li>Chat W/ Profs ▼
         <ul>
-    <li><a href="{{ url_for('chat_with_prof_menu') }}">Secondary</a></li>
+    <li><a href="{{ url_for('chat_with_profs') }}">Secondary</a></li>
     <li>JC/Poly</li>
     <li>University</li>
         </ul>
@@ -37,21 +36,14 @@
     </ul>
     </div>
     <p class = "login">
-    <span class="align-right">
-        <a href="{{ url_for('login') }}">Login</a>
-    </span>
-    </p>
-
-    <div class="test">
-        <p>Welcome to Career Highway! This website is created to aid and guide you in choosing your career path.
-            <br>
-            <br>
-            Through a short survey under 'ECG', wou will be able to know the type of car you are, which allows you to also access the courses open for the specific career option!
-            <br>
-            <br>
-            Under the 'Chat with Profs' tab, you would be able to chat with professors from different universities to ask them your queries and hopefully get some real-time responses!
+        <span class="align-right">
+            <a href="{{ url_for('login') }}">Login</a>
+        </span>
         </p>
+    
+    <div class="test">
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis delectus itaque facilis numquam at culpa veniam eos. Delectus rem, accusantium, iusto similique a facere eius labore suscipit laudantium, excepturi est.</p>
     </div>
-
 </body>
+
 </html>

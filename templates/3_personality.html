@@ -14,7 +14,7 @@
     <h1 class="personality">Congratulations! You are a {{personality}} Car!</h1>
     <img src='{{img}}' width=360px>
     <p>{{desc}}</p>
-    <form action="{{url_for('jobs')}}">
+    <form action="{{url_for('get_jobs', personality=personality)}}">
         <input type="submit" value="Find my job options!">
     </form>
 </body>

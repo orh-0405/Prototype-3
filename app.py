@@ -1,8 +1,19 @@
 from flask import Flask, render_template, request, redirect, url_for
 from chat_with_prof import get_user, create_table, get_db, checkpassword, get_account_type, list_of_prof,list_of_stu, new, set_default
 from datetime import datetime
+import os.path
 import sqlite3
-from flask_socketio import SocketIO
+from survey import open_survey
+#from flask_socketio import SocketIO
+
+curr_dir = os.path.dirname(__file__)
+
+def get_db(db_name):
+    db_file_name = os.path.join(curr_dir, db_name)
+    db = sqlite3.connect(db_file_name, check_same_thread=False) #db, db3, sqlite, sqlite3
+    print("Opened database successfully")#;
+    db.row_factory = sqlite3.Row
+    return db
 
 app = Flask(__name__)
 
@@ -12,6 +23,9 @@ def index():
     
     return render_template('home.html')
 
+@app.route('/about/')
+def about():
+    return render_template('about_page.html')
 
 @app.route('/survey_start/')
 def survey_start():
@@ -21,6 +35,14 @@ def survey_start():
 @app.route('/survey_page/')
 def survey_page():
     return render_template('2_survey.html')
+
+
+@app.route('/test/')
+def test():
+    questions = open_survey()
+    for i in range(len(questions)):
+        print(questions[i][1])
+    return render_template('testtt.html', questions=questions)
 
 
 @app.route('/personality/')
@@ -33,21 +55,58 @@ def personality():
                            desc=desc,
                            img=img)
 
+@app.route('/get_jobs/<string:personality>/')
+def get_jobs(personality):
+    New_db_name = 'uni_database_file/' + personality + '_car' + '.db'
+    print(New_db_name)
+    db = get_db(New_db_name)
+    cursor = db.execute("SELECT * FROM Jobs_Avail")
+    rows = cursor.fetchall()
+    data = []
+    for row in rows:
+        jobs = row[2].split("\n")
+        data.append([row[1], jobs])
+    return render_template('4_job_options.html', data=data)
 
-@app.route('/jobs/')
-def jobs():
-    return render_template('4_job_options.html')
 
-
-@app.route('/doctor/')
-def doctor():
-    pic = "../static/doctor.png"
-    return render_template('5_job_desc.html', pic=pic)
-
-
-@app.route('/courses/')
-def courses():
-    return render_template('6_course.html')
+@app.route('/job_info/<string:job_chosen>/<string:db_name>/', methods = ['POST', 'GET'])
+def job_info(job_chosen, db_name):
+    print("HERE job info")
+    New_db_name = 'uni_database_file/' + db_name + '.db'
+    db = get_db(New_db_name)
+    
+    if job_chosen in ["Doctor", "Veterinarian", "Pharmacist", "Physical therapists"]:
+        job_chosen = "Medicine"
+        
+    print("JOb: ", job_chosen)
+    cursor = db.execute(f"SELECT * FROM {job_chosen}")
+    rows = cursor.fetchall()
+    if request.method == "POST":
+        print("POST METHOD")
+        data = []
+        for row in rows:
+            #final = ""
+            criteria = row[2]
+            criteria = criteria.split('-')
+            print("criteria.split()", criteria)
+            #criteria[2] = criteria[0] + " " + criteria[1] + " " + criteria[2]
+            print("??:",row[0], criteria[2])
+            refs = row[4]
+            refs = refs.split("\n")
+            data.append([row[0],[row[1]],criteria,[row[3]], refs])
+        print(data)
+        return render_template('6_course.html', data=data)
+    else:
+        print("method: ", request.method)
+        print('GET METHOD')
+        print(db_name)
+        descriptions = []
+        for row in rows:
+            descriptions.append(row[-2])
+        return render_template('5_job_desc.html', 
+                                descriptions=descriptions, 
+                                job_chosen=job_chosen,
+                                db_name=db_name)
 
 @app.route('/chat_with_prof_menu/')
 def chat_with_prof_menu():
