@@ -1,5 +1,5 @@
 *{
-    margin: 0;
+    margin: 2;
     padding: 0;
     }
                body{
@@ -19,10 +19,8 @@
         margin-left: auto;
         margin-right: auto;
         margin-top: 3vh;
-        border: #262626 solid 1px;
         width: 40%;
         text-align: center;
-        background-color: white;
         color: #262626;
         padding: 1vh;
     }
@@ -67,5 +65,25 @@
     margin-left: 170px;
     top: 0;
     position: absolute;
+    }
+
+    .header {
+        background-color: white;
+        border: #262626 solid 1px;
+    }
+    
+    .test{
+        margin-block-start: 8%;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #fff;
+        padding: 2px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .desc{
+        color: black;
     }
     

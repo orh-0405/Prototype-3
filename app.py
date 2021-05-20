@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import os.path
 import sqlite3
+from survey import open_survey
 
 curr_dir = os.path.dirname(__file__)
 
@@ -17,6 +18,10 @@ app = Flask(__name__)
 def index():
     return render_template('home.html')
 
+@app.route('/about/')
+def about():
+    return render_template('about_page.html')
+
 
 @app.route('/survey_start/')
 def survey_start():
@@ -25,7 +30,17 @@ def survey_start():
 
 @app.route('/survey_page/')
 def survey_page():
+    questions = open_survey()
+    for i in range(len(questions)):
+        print(questions[i][1])
     return render_template('2_survey.html')
+
+@app.route('/test/')
+def test():
+    questions = open_survey()
+    for i in range(len(questions)):
+        print(questions[i][1])
+    return render_template('testtt.html', questions=questions)
 
 
 @app.route('/personality/')
@@ -57,6 +72,10 @@ def job_info(job_chosen, db_name):
     print("HERE job info")
     New_db_name = 'uni_database_file/' + db_name + '.db'
     db = get_db(New_db_name)
+    
+    if job_chosen in ["Doctor", "Veterinarian", "Pharmacist", "Physical therapists"]:
+        job_chosen = "Medicine"
+        
     print("JOb: ", job_chosen)
     cursor = db.execute(f"SELECT * FROM {job_chosen}")
     rows = cursor.fetchall()
@@ -67,10 +86,12 @@ def job_info(job_chosen, db_name):
             #final = ""
             criteria = row[2]
             criteria = criteria.split('-')
-            criteria[2] = criteria[0] + " " + criteria[1] + " " + criteria[2]
+            print("criteria.split()", criteria)
+            #criteria[2] = criteria[0] + " " + criteria[1] + " " + criteria[2]
+            print("??:",row[0], criteria[2])
             refs = row[4]
             refs = refs.split("\n")
-            data.append([row[0],[row[1]],criteria[2:],[row[3]], refs])
+            data.append([row[0],[row[1]],criteria,[row[3]], refs])
         print(data)
         return render_template('6_course.html', data=data)
     else:
@@ -84,10 +105,6 @@ def job_info(job_chosen, db_name):
                                 descriptions=descriptions, 
                                 job_chosen=job_chosen,
                                 db_name=db_name)
-
-@app.route('/test/')
-def test():
-    return render_template('test.html')
 
 
 @app.route('/courses/')

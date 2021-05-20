@@ -41,3 +41,8 @@ ol {
     padding-top: 10px;
     padding-bottom: 10px
 }
+
+div {
+    border-color: black;
+    border-radius: 1px;
+}

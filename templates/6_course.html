@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/form_style.css">
     <title>Courses</title>
     
 </head>
@@ -19,14 +20,18 @@
     <p>
         
     </p>
-    {% for row in data %}
-    <p>For more information, please click the following links:</p>
-    {%for ref in row[4]%}
-    {%if ref != " "%}
-    <p><a href={{ref}}>{{ref}}</a></p>
-    {%endif%}
-    {%endfor%}
-    {%endfor%}
+    
+    <div>
+        <br>
+        <p>For more information, please click the following links:</p>
+        {% for row in data %}
+        {%for ref in row[4]%}
+        {%if ref != " "%}
+        <p><a href={{ref}}>{{ref}}</a></p>
+        {%endif%}
+        {%endfor%}
+        {%endfor%}
+    </div>
     <form action="{{ url_for('index') }}">
         <input type="submit" value="back to home">
     </form>

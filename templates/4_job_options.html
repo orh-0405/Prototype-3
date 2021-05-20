@@ -11,6 +11,16 @@
     <h1>Jobs under this category:</h1>
     <ol>
     {%for industry in data%}
+    {%if industry[0] == 'Engineering'%}
+    <li>{{industry[0]}}</li>
+    <ul>
+        {%for job in industry[1]%}
+        <li>{{job}}</li>
+        {%endfor%}
+        <p>Find out more about the above job courses <a href="{{ url_for('job_info', job_chosen='Engineering', db_name='Practical_car') }}">here</a>!</p>
+        <br>
+    </ul>
+    {%else%}
     <li>{{industry[0]}}</li>
     <ul>
         {%for job in industry[1]%}
@@ -18,6 +28,8 @@
         {%endfor%}
     </ul>
     <br>
+    {%endif%}
+    
     {%endfor%}
     </ol>
 </body>
