@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 import os.path
 import sqlite3
 from survey import open_survey
+from chat_with_prof import get_db
+from datetime import datetime
 
 curr_dir = os.path.dirname(__file__)
 
