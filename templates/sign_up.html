@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="{{ url_for('signup') }}" method = "POST">
+    <p>
+        username:
+        <input type="text" name = "username">
+    </p>
+    <p>
+        password:
+        <input type="text" name = "password">
+    </p>
+    <p>
+        confirm password:
+        <input type="text" name = "confirmpassword">
+    </p>
+    <p>
+        account type:
+        <select name="acc" id="">
+        <option value="stu">student</option>
+        <option value="prof">professor</option>
+        </select>
+    </p>
+    <p>
+        <input type="submit" value="Login">
+    </p>
+    {%if checked == "1"%}
+    <input type="text" name = "checked" value = "1" hidden>
+    {%elif checked == "0"%}
+    <input type="text" name = "checked" value = "0" hidden>
+    {%if message == "pass"%}
+    <p>Login Success</p>
+    {%else%}
+    <p>{{ message }}</p>
+    {%endif%}
+    {%endif%}
+    </form>
+    <p>
+    <a href="{{ url_for('index') }}">Back Home</a>
+    </p>
+</body>
+</html>

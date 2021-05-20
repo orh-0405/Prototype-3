@@ -14,13 +14,14 @@ def create_table(table_name, db_name):
     db_file_name = os.path.join(curr_dir, "{}.db".format(db_name))
     db = get_db(db_name)
     query = '''
-    CREATE TABLE {}
-    (id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT,
-    email TEXT,
-    message TEXT)
+    "ID"	INTEGER,
+	"Name"	TEXT NOT NULL,
+	"Message"	TEXT NOT NULL,
+	"Time"	TEXT NOT NULL,
+	PRIMARY KEY("ID" AUTOINCREMENT)
     '''.format(table_name)
     db.execute(query)
+    db.commit()
     print("Table created successfully")
     db.close()
 
@@ -112,6 +113,7 @@ def new(name, message, db_name, stu):
         user = get_user()
     else:
         user = stu
+    print(get_user())
     query = "INSERT INTO {} (Name, Message, Time) VALUES(?,?,?)".format("Chat" + user)
     now = datetime.now()  #gets current time
     current_time = now.strftime("%H:%M")
@@ -123,7 +125,11 @@ def new(name, message, db_name, stu):
 def set_default():
     db = get_db("Users.db")
     try:
-        query = "UPDATE main.User SET Login = 0 WHERE Login = 1"
+        query = "UPDATE main.User SET Login = '0' WHERE Login = '1'"
+        db.execute(query)
+        db.commit()
+        db.close()
+        print("1")
     except:
         pass
 

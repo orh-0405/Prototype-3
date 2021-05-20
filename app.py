@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    set_default()
+    
     return render_template('home.html')
 
 
@@ -68,7 +68,8 @@ def chat_with_profs():
             if get_account_type() == "stu":
                 prof = request.args["name"]
                 try:
-                    create_table("Chat" + str(user), "Prof" + prof)
+                    create_table("Chat" + str(user), "Prof" + prof + ".db")
+                    print("i")
                     return render_template('chatwithprof_sec.html', data = "data", user = str(user))
                 except:
                     db_name = "Prof" + prof + ".db"
@@ -130,10 +131,18 @@ def login():
             result = message
         return render_template("login.html", checked ="0", message = result)
 
-@app.route("/signup/")
+@app.route("/signup/", methods = ["GET", "POST"])
 def signup():
-    return "pass"
+    if request.method == "GET":
+        return render_template("sign_up.html", checked = "0")
+    else:
+        
+
 
 
 if __name__ == "__main__":
+    run_once = 0
+    if run_once == 0:
+        set_default()
+        run_once = 1
     app.run(debug=True)
