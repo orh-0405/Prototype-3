@@ -4,17 +4,20 @@ from datetime import datetime
 
 from flask import templating
 
+curr_dir = os.path.dirname(__file__)
+db_file = os.path.join(curr_dir, "chat_with_profdb")
+
 def get_db(Dbname):
-    
-    db = sqlite3.connect(Dbname, check_same_thread= False)
+    db_file_name = os.path.join(db_file, "{}".format(Dbname))
+    db = sqlite3.connect(db_file_name, check_same_thread= False)
+    print(db_file_name)
     print("Opened database successfully")
     db.row_factory = sqlite3.Row
     return(db)
 
 def create_table(table_name, db_name):
-    curr_dir = os.path.dirname(__file__)
-    db_file_name = os.path.join(curr_dir, "{}.db".format(db_name))
-    db = get_db(db_name)
+    db_file_name = os.path.join(db_file, "{}.db".format(db_name))
+    db = get_db(db_file_name)
     query = '''
     "ID"	INTEGER,
 	"Name"	TEXT NOT NULL,
@@ -28,22 +31,19 @@ def create_table(table_name, db_name):
     db.close()
 
 def checkpassword(username, password):
-    #db = get_db("Users.db")
-    db = sqlite3.connect("Users.db")
+    db_file_name = os.path.join(db_file, "Users.db")
+    print(db_file_name)
+    db = get_db(db_file_name)
     query = "SELECT Password FROM User WHERE Name = '{}'".format(username)
     try:
-        print("H")
         cursor = db.execute(query)
         data = cursor.fetchone()
-        print("J")
     except Error as e:
-        print(e)
-        if str(e)[:15] == "no such column:":
-            db.close()
-            return("UNF")
-        else:
-            db.close()
-            return(e)
+        db.close()
+        return(e)
+    if data == None:
+        db.close()
+        return("UNF")
     if password == data[0]:
         query = "UPDATE main.User SET Login = 1 WHERE Name  = ?"
         db.execute(query, (username,))
@@ -57,7 +57,8 @@ def checkpassword(username, password):
         
 
 def get_account_type():
-    db = get_db("Users.db")
+    db_file_name = os.path.join(db_file, "Users.db")
+    db = get_db(db_file_name)
     query = "SELECT acc FROM User WHERE Login = 1"
     try:
         cursor = db.execute(query)
@@ -72,7 +73,8 @@ def get_account_type():
 
 
 def get_user():
-    db = get_db("Users.db")
+    db_file_name = os.path.join(db_file, "Users.db")
+    db = get_db(db_file_name)
     query = "SELECT Name FROM User WHERE Login = 1"
     try:
         cursor = db.execute(query)
@@ -88,7 +90,8 @@ def get_user():
         return(data["Name"])
 
 def list_of_prof():
-    db = get_db("Users.db")
+    db_file_name = os.path.join(db_file, "Users.db")
+    db = get_db(db_file_name)
     query = "SELECT Name FROM User WHERE acc = 'prof'"
     
     data = []
@@ -100,7 +103,8 @@ def list_of_prof():
     return(data)
 
 def list_of_stu():
-    db = get_db("Users.db")
+    db_file_name = os.path.join(db_file, "Users.db")
+    db = get_db(db_file_name)
     query = "SELECT Name FROM User WHERE acc = 'stu'"
     
     data = []
@@ -112,7 +116,8 @@ def list_of_stu():
     return(data)
 
 def new(name, message, db_name, stu):
-    db = get_db(db_name)
+    db_file_name = os.path.join(db_file, "{}".format(db_name))
+    db = get_db(db_file_name)
     if stu == "stu":
         user = get_user()
     else:
@@ -126,7 +131,8 @@ def new(name, message, db_name, stu):
     db.close()
 
 def set_default():
-    db = get_db("Users.db")
+    db_file_name = os.path.join(db_file, "Users.db")
+    db = get_db(db_file_name)
     try:
         query = "UPDATE main.User SET Login = '0' WHERE Login = '1'"
         db.execute(query)
@@ -136,7 +142,8 @@ def set_default():
         pass
 
 def account_exist(Name):
-    db = get_db("Users.db")
+    db_file_name = os.path.join(db_file, "Users.db")
+    db = get_db(db_file_name)
     query = "SELECT Name From User"
     cursor = db.execute(query)
     data = []
@@ -150,7 +157,8 @@ def account_exist(Name):
     return False
 
 def new_user(name, password, acc):
-    db = get_db("Users.db")
+    db_file_name = os.path.join(db_file, "Users.db")
+    db = get_db(db_file_name)
     tup1 = (name, acc, password)
     tup = str(tup1)
     query = "INSERT INTO User(Name, acc, Password) VALUES {}".format(tup)
