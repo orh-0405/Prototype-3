@@ -120,7 +120,7 @@ def chat_with_profs():
             if get_account_type() == "stu":
                 prof = request.args["name"]
                 try:
-                    create_table("Chat" + str(user), "Prof" + prof + ".db")
+                    create_table("Chat" + str(user), "Prof" + prof)
                     print("i")
                     return render_template('chatwithprof_sec.html', data = "data", user = str(user))
                 except:
