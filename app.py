@@ -7,7 +7,6 @@ from survey import open_survey
 curr_dir = os.path.dirname(__file__)
 
 
-
 app = Flask(__name__)
 
 
