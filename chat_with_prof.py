@@ -35,15 +35,14 @@ def checkpassword(username, password):
     db_file_name = os.path.join(db_file, "Users.db")
     db = get_db(db_file_name)
     query = "SELECT Password FROM User WHERE Name = '{}'".format(username)
-    try:
-        cursor = db.execute(query)
-        data = cursor.fetchone()
-    except Error as e:
-        db.close()
-        return(e)
+    
+    cursor = db.execute(query)
+    data = cursor.fetchone()
+    print("J", data)
+
     if data == None:
-        db.close()
-        return("UNF")
+        return ("UNF")
+    print("chat with profs username&pw", username, password)
     if password == data[0]:
         query = "UPDATE main.User SET Login = 1 WHERE Name  = ?"
         db.execute(query, (username,))
