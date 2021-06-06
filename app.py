@@ -103,14 +103,16 @@ def job_info(job_chosen, db_name):
 
 @app.route('/chat_with_prof_menu/')
 def chat_with_prof_menu():
-    if get_account_type() == "stu":
-        prof_names = list_of_prof()
-        print(prof_names)
-        print(get_user())
-        return render_template("chatwithprof_menu.html", names = prof_names)
-    elif get_account_type() == "prof":
-        stu_names = list_of_stu()
-        return render_template("chatwithprof_menu.html", names = stu_names)
+    user = get_user()
+    if user != "DLI":
+        if get_account_type() == "stu":
+            prof_names = list_of_prof()
+            return render_template("chatwithprof_menu.html", names = prof_names)
+        elif get_account_type() == "prof":
+            stu_names = list_of_stu()
+            return render_template("chatwithprof_menu.html", names = stu_names)
+    else:
+        return render_template('chatwithprof_sec.html', user = user)
 
 @app.route('/chat_with_profs/', methods = ["POST", "GET"])
 def chat_with_profs():
@@ -126,14 +128,10 @@ def chat_with_profs():
                 except:
                     db_name = "Prof" + prof + ".db"
                     db = get_db(db_name)
-                    print(prof)
-                    print("A")
-                    print("Chat" + str(user))
                     query = "SELECT * FROM {}".format("Chat" + str(user))
                     cursor = db.execute(query)
                     data = cursor.fetchall()
                     db.close()
-                    print(data)
                     return render_template('chatwithprof_sec.html', data = data, user = str(user), db_name = db_name, choice = prof, stu = "")
             elif get_account_type() == "prof":
                 stu = request.args["name"]
@@ -169,7 +167,6 @@ def login():
         return render_template("login.html", checked = "1")
     else:
         username = request.form["username"]
-        print(username)
         password = request.form["password"]
         message = checkpassword(username, password)
         if message == "S":
@@ -192,7 +189,6 @@ def signup():
         confirmpassword = request.form["confirmpassword"]
         acc = request.form["acc"]
         if password == confirmpassword:
-            print(account_exist(name))
             if account_exist(name) == False:
                 new_user(name, password, acc)
                 return render_template("sign_up.html", checked = "1", message = "pass")
