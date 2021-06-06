@@ -2,13 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for
 from chat_with_prof import get_user, create_table, get_db, checkpassword, get_account_type, list_of_prof,list_of_stu, new, set_default, account_exist, new_user
 import os.path
 from survey import open_survey
-
+import sqlite3
 
 curr_dir = os.path.dirname(__file__)
 
-
 app = Flask(__name__)
-
 
 @app.route('/')
 def index():
@@ -51,7 +49,7 @@ def personality():
 def get_jobs(personality):
     New_db_name = 'uni_database_file/' + personality + '_car' + '.db'
     print(New_db_name)
-    db = get_db(New_db_name)
+    db = sqlite3.connect(New_db_name)
     cursor = db.execute("SELECT * FROM Jobs_Avail")
     rows = cursor.fetchall()
     data = []
@@ -65,7 +63,8 @@ def get_jobs(personality):
 def job_info(job_chosen, db_name):
     print("HERE job info")
     New_db_name = 'uni_database_file/' + db_name + '.db'
-    db = get_db(New_db_name)
+    print(New_db_name)
+    db = sqlite3.connect(New_db_name)
     
     if job_chosen in ["Doctor", "Veterinarian", "Pharmacist", "Physical therapists"]:
         job_chosen = "Medicine"
