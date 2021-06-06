@@ -10,7 +10,6 @@ db_file = os.path.join(curr_dir, "chat_with_profdb")
 def get_db(Dbname):
     db_file_name = os.path.join(db_file, "{}".format(Dbname))
     db = sqlite3.connect(db_file_name, check_same_thread= False)
-    print(db_file_name)
     print("Opened database successfully")
     db.row_factory = sqlite3.Row
     return(db)
@@ -19,11 +18,13 @@ def create_table(table_name, db_name):
     db_file_name = os.path.join(db_file, "{}.db".format(db_name))
     db = get_db(db_file_name)
     query = '''
+    CREATE TABLE {} (
     "ID"	INTEGER,
 	"Name"	TEXT NOT NULL,
 	"Message"	TEXT NOT NULL,
 	"Time"	TEXT NOT NULL,
 	PRIMARY KEY("ID" AUTOINCREMENT)
+    );
     '''.format(table_name)
     db.execute(query)
     db.commit()
@@ -32,7 +33,6 @@ def create_table(table_name, db_name):
 
 def checkpassword(username, password):
     db_file_name = os.path.join(db_file, "Users.db")
-    print(db_file_name)
     db = get_db(db_file_name)
     query = "SELECT Password FROM User WHERE Name = '{}'".format(username)
     
@@ -62,13 +62,17 @@ def get_account_type():
     try:
         cursor = db.execute(query)
         data = cursor.fetchone()
+        db.close()
     except Error as e:
+        db.close()
         return(e)
     if data == None:
+        db.close()
         return("DLI")
     else:
+        db.close()
         return(data["acc"])
-    db.close()
+    
 
 
 def get_user():
