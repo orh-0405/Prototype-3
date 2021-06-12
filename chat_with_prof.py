@@ -34,8 +34,8 @@ def create_table(table_name, db_name):
 def checkpassword(username, password):
     db_file_name = os.path.join(db_file, "Users.db")
     db = get_db(db_file_name)
+    account_exist(username)
     query = "SELECT Password FROM User WHERE Name = '{}'".format(username)
-    
     cursor = db.execute(query)
     data = cursor.fetchone()
     print("J", data)
@@ -147,13 +147,17 @@ def set_default():
 def account_exist(Name):
     db_file_name = os.path.join(db_file, "Users.db")
     db = get_db(db_file_name)
-    query = "SELECT Name From User"
+    query = "SELECT Name, Password From User"
     cursor = db.execute(query)
     data = []
     temp = cursor.fetchall()
+    pw = []
     for i in temp:
         data.append(i["Name"])
+        pw.append(i["Password"])
     db.close()
+    print("usernames", data)
+    print("passwords", pw)
     for i in data:
         if i == Name:
             return True
