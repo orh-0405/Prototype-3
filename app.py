@@ -27,12 +27,19 @@ def survey_page():
     return render_template('2_survey.html')
 
 
-@app.route('/test/')
+@app.route('/test/', methods=["GET", "POST"])
 def test():
-    questions = open_survey()
-    for i in range(len(questions)):
-        print(questions[i][1])
-    return render_template('testtt.html', questions=questions)
+    if request.method == "GET":
+        questions = open_survey()
+        for i in range(len(questions)):
+            print(questions[i][1])
+        return render_template('testtt.html', questions=questions)
+    else:
+        values = []
+        for i in range(1,11):
+            value = request.form[str(i)]
+            values.append(value)
+        return str(values)
 
 
 @app.route('/personality/')
