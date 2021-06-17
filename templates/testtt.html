@@ -4,11 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .likert li {
+        float: left;
+        list-style-type: none;
+        }
+    </style>
     <title>Document</title>
 </head>
 <body>
-    {%for q in questions%}
+    <form action = "{{url_for('test')}}" method = "POST">
+        {%for q in questions[:5]%}
     <p>{{q[1]}}</p>
+    <p>
+        <input type="radio" name="{{q[0]}}" value = "Yes" id="yes{{q[0]}}">
+        <label for="yes{{q[0]}}">Yes</label>
+        <input type="radio" name="{{q[0]}}" value = "No" id="no{{q[0]}}">
+        <label for="no{{q[0]}}">No</label>
+    </p>
     {%endfor%}
+
+    {%for q in questions[5:]%}
+    <p>{{q[1]}}</p>
+    <p>
+        <ul class="likert">
+            <li> <label for="1 {{q[0]}}">1</label> </li>
+            <li><input type="radio" name="{{q[0]}}" value = "1"id="1 {{q[0]}}"/></li>
+            <li><input type="radio" name="{{q[0]}}" value = "2"/></li>
+            <li><input type="radio" name="{{q[0]}}" value = "3"/></li>
+            <li><input type="radio" name="{{q[0]}}" value = "4"/></li>
+            <li><input type="radio" name="{{q[0]}}" value = "5" id="5 {{q[0]}}"/></li> 
+            <label for="5 {{q[0]}}">5</label>
+          </ul>
+    </p>
+    {%endfor%}
+    <input type="submit">
+    </form>
 </body>
 </html>

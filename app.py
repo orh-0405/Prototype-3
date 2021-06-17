@@ -27,19 +27,30 @@ def survey_page():
     return render_template('2_survey.html')
 
 
-@app.route('/test/')
+@app.route('/test/', methods=["GET", "POST"])
 def test():
-    questions = open_survey()
-    for i in range(len(questions)):
-        print(questions[i][1])
-    return render_template('testtt.html', questions=questions)
+    if request.method == "GET":
+        questions = open_survey()
+        for i in range(len(questions)):
+            print(questions[i][1])
+        return render_template('testtt.html', questions=questions)
+    else:
+        values = []
+        for i in range(1,11):
+            value = request.form[str(i)]
+            values.append(value)
+        return str(values)
 
 
 @app.route('/personality/')
 def personality():
-    img = "../static/practical_car.png"
-    personality = "Practical"
-    desc = "You enjoy working with machines, mechanisms and tools, and you might be interested in physical or biological processes, as well as building and modelling! Let’s take a look at the possible jobs you may be interested in that are in this category!"
+    img = "../static/data_car.png"
+    personality = "Data"
+    desc = "You enjoy working with data such as numbers and percentages etc. You have good logic and would be good at jobs such as business finance and accounting!"
+
+    #img = "../static/practical_car.png"
+    #personality = "Practical"
+    #desc = "You enjoy working with machines, mechanisms and tools, and you might be interested in physical or biological processes, as well as building and modelling! Let’s take a look at the possible jobs you may be interested in that are in this category!"
     return render_template('3_personality.html',
                            personality=personality,
                            desc=desc,
@@ -55,8 +66,8 @@ def get_jobs(personality):
     data = []
     for row in rows:
         jobs = row[2].split("\n")
-        data.append([row[1], jobs])
-    return render_template('4_job_options.html', data=data)
+        data.append([row[1], jobs, personality+"_car"])
+    return render_template('4_job_options.html', data=data, New_db_name=New_db_name)
 
 
 @app.route('/job_info/<string:job_chosen>/<string:db_name>/', methods = ['POST', 'GET'])
@@ -65,11 +76,18 @@ def job_info(job_chosen, db_name):
     New_db_name = 'uni_database_file/' + db_name + '.db'
     print(New_db_name)
     db = sqlite3.connect(New_db_name)
+    print("JOb: ", job_chosen)
     
     if job_chosen in ["Doctor", "Veterinarian", "Pharmacist", "Physical therapists"]:
         job_chosen = "Medicine"
-        
-    print("JOb: ", job_chosen)
+
+    if job_chosen in ["Business Sector", "Accountant"]:
+        job_chosen = "Business_Accounting"
+
+    if "Compute" in job_chosen:
+        job_chosen = "Computing"
+    
+    print(job_chosen)
     cursor = db.execute(f"SELECT * FROM {job_chosen}")
     rows = cursor.fetchall()
     if request.method == "POST":
@@ -86,7 +104,7 @@ def job_info(job_chosen, db_name):
             refs = refs.split("\n")
             data.append([row[0],[row[1]],criteria,[row[3]], refs])
         print(data)
-        return render_template('6_course.html', data=data)
+        return render_template('6_course.html', data=data, job_chosen=job_chosen)
     else:
         print("method: ", request.method)
         print('GET METHOD')
