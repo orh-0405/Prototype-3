@@ -9,7 +9,7 @@ db_file = os.path.join(curr_dir, "chat_with_profdb")
 
 def get_db(Dbname):
     db_file_name = os.path.join(db_file, "{}".format(Dbname))
-    db = sqlite3.connect(db_file_name, check_same_thread= False)
+    db = sqlite3.connect(db_file_name)#problem should be check_same_thread = False
     print("Opened database successfully")
     db.row_factory = sqlite3.Row
     return(db)
