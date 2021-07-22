@@ -120,6 +120,7 @@ def job_info(job_chosen, db_name):
 >>>>>>> Stashed changes
     cursor = db.execute(f"SELECT * FROM {job_chosen}")
     rows = cursor.fetchall()
+    db.close()
     if request.method == "POST":
         print("POST METHOD")
         data = []
