@@ -24,7 +24,10 @@ def survey_start():
 
 @app.route('/survey_page/')
 def survey_page():
-    return render_template('2_survey.html')
+    questions = open_survey()
+    for i in range(len(questions)):
+        print(questions[i][1])
+    return render_template('2_survey.html', questions=questions)
 
 
 @app.route('/test/', methods=["GET", "POST"])
@@ -42,7 +45,7 @@ def test():
         return str(values)
 
 
-@app.route('/personality/')
+@app.route('/personality/', methods = ["POST"])
 def personality():
     img = "../static/data_car.png"
     personality = "Data"

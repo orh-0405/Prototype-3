@@ -8,6 +8,15 @@
         .likert li {
         float: left;
         list-style-type: none;
+        margin-left: 10px;
+        }
+        section {
+            margin-right: auto;
+            margin-left: 570px;
+        }
+        section li{
+            margin-right: auto;
+            margin-left: auto;
         }
     </style>
     <title>Document</title>
@@ -25,20 +34,23 @@
     {%endfor%}
 
     {%for q in questions[5:]%}
-    <p>{{q[1]}}</p>
-    <p>
-        <ul class="likert">
-            <li> <label for="1 {{q[0]}}">1</label> </li>
-            <li><input type="radio" name="{{q[0]}}" value = "1"id="1 {{q[0]}}"/></li>
-            <li><input type="radio" name="{{q[0]}}" value = "2"/></li>
-            <li><input type="radio" name="{{q[0]}}" value = "3"/></li>
-            <li><input type="radio" name="{{q[0]}}" value = "4"/></li>
-            <li><input type="radio" name="{{q[0]}}" value = "5" id="5 {{q[0]}}"/></li> 
-            <label for="5 {{q[0]}}">5</label>
-          </ul>
-    </p>
+    <p> {{q[1]}}</p>
+    <section>
+        <p>
+            <ul class="likert">
+                <li> <label for="1 {{q[0]}}">1</label> </li>
+                <li><input type="radio" name="{{q[0]}}" value = "1"id="1 {{q[0]}}"/></li>
+                <li><input type="radio" name="{{q[0]}}" value = "2"/></li>
+                <li><input type="radio" name="{{q[0]}}" value = "3"/></li>
+                <li><input type="radio" name="{{q[0]}}" value = "4"/></li>
+                <li><input type="radio" name="{{q[0]}}" value = "5" id="5 {{q[0]}}"/></li> 
+                <li><label for="5 {{q[0]}}">5</label></li>
+            </ul>
+        </p>
+    </section>
+    <br>
     {%endfor%}
-    <input type="submit">
+    <p><input type="submit"></p>
     </form>
 </body>
 </html>
