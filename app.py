@@ -106,7 +106,7 @@ def job_info(job_chosen, db_name):
             print("??:",row[0], criteria[2])
             refs = row[4]
             refs = refs.split("\n")
-            data.append([row[0],[row[1]],criteria,[row[3]], refs])
+            data.append([row[0],[row[1]],criteria,[row[3]], refs, row[5]])
         print(data)
         return render_template('6_courses_new.html', data=data, job_chosen=job_chosen)
     else:
@@ -115,7 +115,7 @@ def job_info(job_chosen, db_name):
         print(db_name)
         descriptions = []
         for row in rows:
-            descriptions.append(row[-2])
+            descriptions.append(row[-3])
         return render_template('5_job_desc.html', 
                                 descriptions=descriptions, 
                                 job_chosen=job_chosen,
