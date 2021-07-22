@@ -108,7 +108,7 @@ def job_info(job_chosen, db_name):
             refs = refs.split("\n")
             data.append([row[0],[row[1]],criteria,[row[3]], refs])
         print(data)
-        return render_template('6_course.html', data=data, job_chosen=job_chosen)
+        return render_template('6_courses_new.html', data=data, job_chosen=job_chosen)
     else:
         print("method: ", request.method)
         print('GET METHOD')
@@ -218,6 +218,22 @@ def signup():
         else:
             return render_template("sign_up.html", checked = "1", message = "Password does not match")
 
+@app.route('/course_test/')
+def courses():
+    db = sqlite3.connect("uni_database_file/Data_car.db")
+    cursor = db.execute(f"SELECT * FROM Business_Accounting")
+    rows = cursor.fetchall()
+    db.close()
+    data = []
+    for row in rows:
+        criteria = row[2]
+        criteria = criteria.split('-')
+        refs = row[4]
+        refs = refs.split("\n")
+        data.append([row[0],[row[1]],criteria,[row[3]], refs])
+    print(data)
+    return render_template("6_courses_new.html", data=data)
+    #return render_template('test_courses.html', data=data)
 
 
 if __name__ == "__main__":
