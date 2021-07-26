@@ -75,10 +75,12 @@ def personality():
                         scores[category] += 1
                     elif qn > 6:
                         scores[category] += int(ans[1])
+
     info = {"Social":["../static/social_car.jpeg", "You are a dedicated leader, humanistic, responsible and supportive. You use feelings, words and ideas to work with people rather than physical activity to do things. You enjoy closeness, sharing, groups, unstructured activity and being in charge. JObs that allow you to interact with people will be jobs that you will love!"] , \
         "Practical":["../static/practical_car.png", "You a good sense of prioritizing work. Maintaining a logical order of tasks is your biggest strength. Confidence and ability to make rational decisions in life is the significant quality of a practical person. You don't just assume things and act, but rather know what they are doing. You enjoy working with machines, mechanisms and tools, and you might be interested in physical or biological processes, as well as building and modelling! Let’s take a look at the possible jobs you may be interested in that are in this category!"] , \
             "Data":["../static/data_car.png", "You enjoy working with data such as numbers and percentages etc. You have good logic and would be good at jobs such as business finance and accounting!"], \
                 "Creative":["../static/creative_car.jpeg", "You like to daydream and imagine the possibilities and wonders of the world. You can immerse yourself in imagination and fantasy, yet remain grounded enough to turn their daydreams into reality. You are often described as a dreamer, but that doesn't mean that you live with your heads in the clouds. Jobs in the creative industry are very fitted for you, including those of art, media and writing!"]}
+
     key_list = list(scores.keys())
     val_list = list(scores.values())
     position = val_list.index(max(val_list))
