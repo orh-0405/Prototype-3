@@ -5,33 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>What kind of car are you?</title>
-    <link rel="stylesheet" href="../static/form_style.css"> 
+    <link rel="stylesheet" href="../static/form_style.css">
+
 </head>
 <body>
-    <form action="{{ url_for('personality') }}">
+    <form action="{{ url_for('personality') }}" method="POST">
         <h1>What kind of car are you?</h1>
-        <p>Do you like interacting with people (e.g. talking to strangers) ?</p>
-        <input type='radio' name='interaction' value="yes" id='yesid'><label for="yesid">Yes</label><br>
-        <input type='radio' name='interaction' value="no" id='noid'><label for="noid">No</label>
-
-        <p>Do you like working with machines or other hands-on classes (e.g. at the D&T lab or science practicals)</p>
-        <input type='radio' name='prac' value="yes" id='yes_id'><label for="yes_id">Yes</label><br>
-        <input type='radio' name='prac' value="no" id='no_id'><label for="no_id">No</label>
-
-        <p>Do you like to look at data (e.g. graphs and charts) and interpret data?</p>
-        <input type='radio' name='data' value="yes" id='yes.id'><label for="yes.id">Yes</label><br>
-        <input type='radio' name='data' value="no" id='no.id'><label for="no.id">No</label>
-
-        <p>Do you enjoy different art forms (e.g. poetry and drawing) and think out of the box?
+        {%for q in questions[:6]%}
+        <p>Q{{q[0]}}: {{q[1]}}</p>
+        <p>
+            <input type="radio" name="{{q[0]}}" value = "Yes" id="yes{{q[0]}}">
+            <label for="yes{{q[0]}}">Yes</label>
+            <input type="radio" name="{{q[0]}}" value = "No" id="no{{q[0]}}">
+            <label for="no{{q[0]}}">No</label>
         </p>
-        <input type='radio' name='arts' value="yes" id='yes-id'><label for="yes-id">Yes</label><br>
-        <input type='radio' name='arts' value="no" id='no-id'><label for="no-id">No</label>
+        {%endfor%}
 
-        <br>
-        <br>
-        <input type='submit'>
-        <br>
-        <br>
+    {%for q in questions[6:]%}
+    <p> Q{{q[0]}}: {{q[1]}}</p>
+    <section>
+            <ul class="likert">
+                <li> <label for="1 {{q[0]}}">1</label> </li>
+                <li><input type="radio" name="{{q[0]}}" value = "1"id="1 {{q[0]}}"/></li>
+                <li><input type="radio" name="{{q[0]}}" value = "2"/></li>
+                <li><input type="radio" name="{{q[0]}}" value = "3"/></li>
+                <li><input type="radio" name="{{q[0]}}" value = "4"/></li>
+                <li><input type="radio" name="{{q[0]}}" value = "5" id="5 {{q[0]}}"/></li> 
+                <li><label for="5 {{q[0]}}">5</label></li>
+            </ul>
+    </section>
+    <br>
+    {%endfor%}
+    <br><input type="submit"><br> <br>
     </form>
 
     <table class=center border=black>

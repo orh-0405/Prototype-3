@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
+
+<h1>Here are the criteria required for different schools for the {{job_chosen}} course!</h1>
+{%for row in data%}
+<h2>{{row[0]}}: {{row[1][0]}}</h2>
+<button type="button" class="collapsible">About {{row[1][0]}}</button>
+  <div class="content">
+    <p>{{row[5]}}</p>
+  </div>
+  <button type="button" class="collapsible">Course Requirements</button>
+  <div class="content">
+    {%for string in row[2]%}
+    <p>- {{string}}</p>
+    {%endfor%}
+  </div>
+  <button type="button" class="collapsible">Reference Links</button>
+  <div class="content">
+    {%for ref in row[4]%}
+        {%if ref != " "%}
+        <p><a href="{{ref}}" target="_blank">{{ref}}</a></p>
+        {%endif%}
+        {%endfor%}
+  </div>
+{%endfor%}
+
+<form action="{{ url_for('index') }}">
+  <p><input type="submit" value="back to home"></p>
+</form>
+
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+
+</body>
+</html>

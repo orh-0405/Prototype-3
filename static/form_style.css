@@ -29,6 +29,13 @@ p {
     padding-bottom: 10px;
 }
 
+.likert li {
+    float: left;
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+    }
+
 ol {
     background: white;
     text-align: left;
@@ -40,4 +47,29 @@ ol {
     padding-right: auto;
     padding-top: 10px;
     padding-bottom: 10px
+}
+
+p, li {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.likert li {
+    float: left;
+    list-style-type: none;
+    margin-left: 10px;
+}
+
+section {
+    margin-right: auto;
+    margin-left: 570px;
+}
+
+section li{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+p, ul{
+    background-color: white;
 }
