@@ -24,11 +24,7 @@
     <li>{{industry[0]}}</li>
     <ul>
         {%for job in industry[1]%}
-<<<<<<< Updated upstream
-        <li><a href="{{ url_for('job_info', job_chosen=job, db_name=industry[2]) }}">{{job}}</a></li>
-=======
         <li><a href="{{ url_for('job_info', job_chosen=job, db_name='Practical_car') }}">{{job}}</a></li>
->>>>>>> Stashed changes
         {%endfor%}
     </ul>
     <br>
