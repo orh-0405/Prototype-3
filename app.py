@@ -106,7 +106,7 @@ def get_jobs(personality):
     data = []
     for row in rows:
         jobs = row[2].split("\n")
-        data.append([row[1], jobs, personality+"_car"])
+        data.append([row[1].replace("_", " "), jobs, personality+"_car"])
     return render_template('4_job_options.html', data=data, New_db_name=New_db_name)
 
 
@@ -131,7 +131,7 @@ def job_info(job_chosen, db_name):
         job_chosen = "Arts_Social_Sciences"
     
     if job_chosen in ['Freelance Designer', 'Marketing Specialist', 'Senior Design ', 'Engineer', 'Chief Engineer', 'Architectural Designer', 'Project Architect']:
-        job_chosen = " "
+        job_chosen = "Design_Environment"
     
     print(job_chosen)
     cursor = db.execute(f"SELECT * FROM {job_chosen}")
@@ -159,10 +159,17 @@ def job_info(job_chosen, db_name):
         descriptions = []
         for row in rows:
             descriptions.append(row[-3])
+        if "_" in job_chosen:
+            idx = job_chosen.index("_")
+            job = job_chosen[:idx] + " and " + job_chosen[idx+1: ]
+            job = job.replace("_", " ")
+        else:
+            job = job_chosen
         return render_template('5_job_desc.html', 
                                 descriptions=descriptions, 
                                 job_chosen=job_chosen,
-                                db_name=db_name)
+                                db_name=db_name,
+                                job=job)
 
 @app.route('/chat_with_prof_menu/')
 def chat_with_prof_menu():

@@ -87,3 +87,29 @@
         padding-right: 10px;
         padding-left: 10px;
     }
+
+    .possibilities {
+        margin-block-start: 2%;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #fff;
+        padding: 2px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .possibilities ol li{
+        width: 80%;
+        margin-left: 20px;
+        background-color: #fff;
+        line-height: 25px;
+    }
+
+    .possibilities ul li{
+        width: 95%;
+        margin-left: 40px;
+        background-color: #fff;
+        word-wrap: normal;  
+        line-height: 20px;
+    }
