@@ -10,7 +10,7 @@ db_file = os.path.join(curr_dir, "chat_with_profdb")
 def get_db(Dbname):
     db_file_name = os.path.join(db_file, "{}".format(Dbname))
     db = sqlite3.connect(db_file_name)#problem should be check_same_thread = False
-    #print("Opened database successfully")
+    print("Opened database successfully")
     db.row_factory = sqlite3.Row
     return(db)
 
@@ -28,7 +28,7 @@ def create_table(table_name, db_name):
     '''.format(table_name)
     db.execute(query)
     db.commit()
-    #print("Table created successfully")
+    print("Table created successfully")
     db.close()
 
 def checkpassword(username, password):
@@ -38,11 +38,11 @@ def checkpassword(username, password):
     query = "SELECT Password FROM User WHERE Name = '{}'".format(username)
     cursor = db.execute(query)
     data = cursor.fetchone()
-    #print("J", data)
+    print("J", data)
 
     if data == None:
         return ("UNF")
-    #print("chat with profs username&pw", username, password)
+    print("chat with profs username&pw", username, password)
     if password == data[0]:
         query = "UPDATE main.User SET Login = 1 WHERE Name  = ?"
         db.execute(query, (username,))
@@ -156,8 +156,8 @@ def account_exist(Name):
         data.append(i["Name"])
         pw.append(i["Password"])
     db.close()
-    #print("usernames", data)
-    #print("passwords", pw)
+    print("usernames", data)
+    print("passwords", pw)
     for i in data:
         if i == Name:
             return True
