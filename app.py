@@ -1,16 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
-<<<<<<< Updated upstream
-from chat_with_prof import get_user, create_table, get_db, checkpassword, get_account_type, list_of_prof,list_of_stu, new, set_default, account_exist, new_user
-import os.path
-from survey import open_survey
-import sqlite3
-=======
 import os.path
 import sqlite3
-from chat_with_prof import get_user, create_table, get_db, checkpassword, get_account_type, list_of_prof,list_of_stu, new
+from chat_with_prof import get_user, create_table, get_db, checkpassword, get_account_type, list_of_prof,list_of_stu, new, set_default
 from datetime import datetime
 from survey import open_survey
->>>>>>> Stashed changes
 
 curr_dir = os.path.dirname(__file__)
 
@@ -64,60 +57,30 @@ def personality():
                            desc=desc,
                            img=img)
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 @app.route('/get_jobs/<string:personality>/')
 def get_jobs(personality):
     New_db_name = 'uni_database_file/' + personality + '_car' + '.db'
     print(New_db_name)
-<<<<<<< Updated upstream
-    db = sqlite3.connect(New_db_name)
-=======
     db = get_db(New_db_name)
->>>>>>> Stashed changes
     cursor = db.execute("SELECT * FROM Jobs_Avail")
     rows = cursor.fetchall()
     data = []
     for row in rows:
         jobs = row[2].split("\n")
-<<<<<<< Updated upstream
-        data.append([row[1], jobs, personality+"_car"])
-    return render_template('4_job_options.html', data=data, New_db_name=New_db_name)
-=======
         data.append([row[1], jobs])
     return render_template('4_job_options.html', data=data)
->>>>>>> Stashed changes
 
 
 @app.route('/job_info/<string:job_chosen>/<string:db_name>/', methods = ['POST', 'GET'])
 def job_info(job_chosen, db_name):
     print("HERE job info")
     New_db_name = 'uni_database_file/' + db_name + '.db'
-<<<<<<< Updated upstream
-    print(New_db_name)
-    db = sqlite3.connect(New_db_name)
-    print("JOb: ", job_chosen)
-    
-    if job_chosen in ["Doctor", "Veterinarian", "Pharmacist", "Physical therapists"]:
-        job_chosen = "Medicine"
-
-    if job_chosen in ["Business Sector", "Accountant"]:
-        job_chosen = "Business_Accounting"
-
-    if "Compute" in job_chosen:
-        job_chosen = "Computing"
-    
-    print(job_chosen)
-=======
     db = get_db(New_db_name)
     
     if job_chosen in ["Doctor", "Veterinarian", "Pharmacist", "Physical therapists"]:
         job_chosen = "Medicine"
         
     print("JOb: ", job_chosen)
->>>>>>> Stashed changes
     cursor = db.execute(f"SELECT * FROM {job_chosen}")
     rows = cursor.fetchall()
     db.close()
@@ -135,11 +98,7 @@ def job_info(job_chosen, db_name):
             refs = refs.split("\n")
             data.append([row[0],[row[1]],criteria,[row[3]], refs])
         print(data)
-<<<<<<< Updated upstream
-        return render_template('6_course.html', data=data, job_chosen=job_chosen)
-=======
         return render_template('6_course.html', data=data)
->>>>>>> Stashed changes
     else:
         print("method: ", request.method)
         print('GET METHOD')
@@ -151,14 +110,11 @@ def job_info(job_chosen, db_name):
                                 descriptions=descriptions, 
                                 job_chosen=job_chosen,
                                 db_name=db_name)
-<<<<<<< Updated upstream
-=======
 
 
 @app.route('/courses/')
 def courses():
     return render_template('6_course.html')
->>>>>>> Stashed changes
 
 @app.route('/chat_with_prof_menu/')
 def chat_with_prof_menu():
