@@ -1,5 +1,5 @@
 *{
-    margin: 2;
+    margin: 0;
     padding: 0;
     }
                body{
@@ -68,14 +68,17 @@
     top: 0;
     position: absolute;
     }
+    .login {
+        margin: 25px 0 5px 0; 
+        width:57px; 
+        height: 14px; 
 
-    .header {
-        background-color: white;
-        border: #262626 solid 1px;
+        text-indent: 100%;
+        white-space: nowrap;
+        
     }
-    
     .test{
-        margin-block-start: 8%;
+        margin-block-start: 5%;
         width: 60%;
         margin-left: auto;
         margin-right: auto;
@@ -85,16 +88,28 @@
         padding-left: 10px;
     }
 
-    .desc{
-        color: black;
+    .possibilities {
+        margin-block-start: 2%;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #fff;
+        padding: 2px;
+        padding-right: 10px;
+        padding-left: 10px;
     }
 
-    .login {
-        margin: 25px 0 5px 0; 
-        width:57px; 
-        height: 14px; 
+    .possibilities ol li{
+        width: 80%;
+        margin-left: 20px;
+        background-color: #fff;
+        line-height: 25px;
+    }
 
-        text-indent: 100%;
-        white-space: nowrap;
-        
+    .possibilities ul li{
+        width: 95%;
+        margin-left: 40px;
+        background-color: #fff;
+        word-wrap: normal;  
+        line-height: 20px;
     }

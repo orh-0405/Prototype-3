@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../static/form_style.css">
 </head>
 <body>
-    <h1>{{job_chosen}}</h1>
+    <h1>{{job}}</h1>
     <img src='{{pic}}' width=360px>
     <p>{{descriptions[0]}}</p>
     <form action="{{ url_for('job_info', job_chosen=job_chosen, db_name=db_name) }}" method="POST">
