@@ -54,54 +54,60 @@ def test():
 
 @app.route('/personality/', methods = ["POST"])
 def personality():
-    scores = {"Social":0 , "Practical":0 , "Data":0 , "Creative":0}
-    answers = []
-    print(request.form["1"])
-    for i in range(1, 11):
-        ans = request.form[str(i)]
-        question_ans_pair = [i, ans]
-        answers.append(question_ans_pair)
-    print(answers)
+    if request.form["pass_form"] == "No":
+        questions = open_survey()
+        for i in range(len(questions)):
+            print(questions[i][1])
+        return render_template('2_survey.html', questions=questions) 
+    else:
+        scores = {"Social":0 , "Practical":0 , "Data":0 , "Creative":0}
+        answers = []
+        print(request.form["1"])
+        for i in range(1, 11):
+            ans = request.form[str(i)]
+            question_ans_pair = [i, ans]
+            answers.append(question_ans_pair)
+        print(answers)
 
-    social_qns = [1, 10]
-    prac_qns = [2,6]
-    data_qns = [3,5,8]
-    creative_qns = [4,7,9]
-    qns_list = [["Social", social_qns],["Practical", prac_qns],\
-        ["Data", data_qns],["Creative", creative_qns]]
+        social_qns = [1, 10]
+        prac_qns = [2,6]
+        data_qns = [3,5,8]
+        creative_qns = [4,7,9]
+        qns_list = [["Social", social_qns],["Practical", prac_qns],\
+            ["Data", data_qns],["Creative", creative_qns]]
 
-    for cat in qns_list:
-        category = cat[0]
-        print(category)
-        qns = cat[1]
-        for qn in qns:
-            for ans in answers:
-                if ans[0] == qn:
-                    print(qn, ans)
-                    if qn <= 6 and ans[1] == "Yes":
-                        scores[category] += 1
-                    elif qn > 6:
-                        scores[category] += int(ans[1])
+        for cat in qns_list:
+            category = cat[0]
+            print(category)
+            qns = cat[1]
+            for qn in qns:
+                for ans in answers:
+                    if ans[0] == qn:
+                        print(qn, ans)
+                        if qn <= 6 and ans[1] == "Yes":
+                            scores[category] += 1
+                        elif qn > 6:
+                            scores[category] += int(ans[1])
 
-    info = {"Social":["../static/social_car.jpeg", "You are a dedicated leader, humanistic, responsible and supportive. You use feelings, words and ideas to work with people rather than physical activity to do things. You enjoy closeness, sharing, groups, unstructured activity and being in charge. JObs that allow you to interact with people will be jobs that you will love!"] , \
-        "Practical":["../static/practical_car.png", "You a good sense of prioritizing work. Maintaining a logical order of tasks is your biggest strength. Confidence and ability to make rational decisions in life is the significant quality of a practical person. You don't just assume things and act, but rather know what they are doing. You enjoy working with machines, mechanisms and tools, and you might be interested in physical or biological processes, as well as building and modelling! Let’s take a look at the possible jobs you may be interested in that are in this category!"] , \
-            "Data":["../static/data_car.png", "You enjoy working with data such as numbers and percentages etc. You have good logic and would be good at jobs such as business finance and accounting!"], \
-                "Creative":["../static/creative_car.jpeg", "You like to daydream and imagine the possibilities and wonders of the world. You can immerse yourself in imagination and fantasy, yet remain grounded enough to turn their daydreams into reality. You are often described as a dreamer, but that doesn't mean that you live with your heads in the clouds. Jobs in the creative industry are very fitted for you, including those of art, media and writing!"]}
+        info = {"Social":["../static/social_car.jpeg", "You are a dedicated leader, humanistic, responsible and supportive. You use feelings, words and ideas to work with people rather than physical activity to do things. You enjoy closeness, sharing, groups, unstructured activity and being in charge. JObs that allow you to interact with people will be jobs that you will love!"] , \
+            "Practical":["../static/practical_car.png", "You a good sense of prioritizing work. Maintaining a logical order of tasks is your biggest strength. Confidence and ability to make rational decisions in life is the significant quality of a practical person. You don't just assume things and act, but rather know what they are doing. You enjoy working with machines, mechanisms and tools, and you might be interested in physical or biological processes, as well as building and modelling! Let’s take a look at the possible jobs you may be interested in that are in this category!"] , \
+                "Data":["../static/data_car.png", "You enjoy working with data such as numbers and percentages etc. You have good logic and would be good at jobs such as business finance and accounting!"], \
+                    "Creative":["../static/creative_car.jpeg", "You like to daydream and imagine the possibilities and wonders of the world. You can immerse yourself in imagination and fantasy, yet remain grounded enough to turn their daydreams into reality. You are often described as a dreamer, but that doesn't mean that you live with your heads in the clouds. Jobs in the creative industry are very fitted for you, including those of art, media and writing!"]}
 
-    key_list = list(scores.keys())
-    val_list = list(scores.values())
-    position = val_list.index(max(val_list))
-    personality = key_list[position]
-    img = info[personality][0]
-    desc = info[personality][1]
+        key_list = list(scores.keys())
+        val_list = list(scores.values())
+        position = val_list.index(max(val_list))
+        personality = key_list[position]
+        img = info[personality][0]
+        desc = info[personality][1]
 
-    #img = "../static/practical_car.png"
-    #personality = "Practical"
-    #desc = "You enjoy working with machines, mechanisms and tools, and you might be interested in physical or biological processes, as well as building and modelling! Let’s take a look at the possible jobs you may be interested in that are in this category!"
-    return render_template('3_personality.html',
-                           personality=personality,
-                           desc=desc,
-                           img=img)
+        #img = "../static/practical_car.png"
+        #personality = "Practical"
+        #desc = "You enjoy working with machines, mechanisms and tools, and you might be interested in physical or biological processes, as well as building and modelling! Let’s take a look at the possible jobs you may be interested in that are in this category!"
+        return render_template('3_personality.html',
+                            personality=personality,
+                            desc=desc,
+                            img=img)
 
 @app.route('/get_jobs/<string:personality>/')
 def get_jobs(personality):

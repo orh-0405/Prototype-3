@@ -26,17 +26,18 @@
     <section>
             <ul class="likert">
                 <li> <label for="1 {{q[0]}}">1</label> </li>
-                <li><input type="radio" name="{{q[0]}}" value = "1"id="1 {{q[0]}}"/></li>
-                <li><input type="radio" name="{{q[0]}}" value = "2"/></li>
-                <li><input type="radio" name="{{q[0]}}" value = "3"/></li>
-                <li><input type="radio" name="{{q[0]}}" value = "4"/></li>
+                <li><input type="radio" name="{{q[0]}}" value = "1" id="1 {{q[0]}}"/></li>
+                <li><input type="radio" name="{{q[0]}}" value = "2" id="2 {{q[0]}}"/></li>
+                <li><input type="radio" name="{{q[0]}}" value = "3" id="3 {{q[0]}}"/></li>
+                <li><input type="radio" name="{{q[0]}}" value = "4" id="4 {{q[0]}}"/></li>
                 <li><input type="radio" name="{{q[0]}}" value = "5" id="5 {{q[0]}}"/></li> 
                 <li><label for="5 {{q[0]}}">5</label></li>
             </ul>
     </section>
     <br>
     {%endfor%}
-    <br><input type="submit"><br> <br>
+    <input type="text" name="pass_form" value="" id="pass_form" hidden>
+    <br><input type="submit" onclick="display()"><br> <br>
     </form>
 
     <table class=center border=black>
@@ -58,5 +59,30 @@
             <td align=middle>Creative Car</td>
         </tr>
     </table>
+    <script>
+        function display() {
+            let checked = 0
+            let no_submit = []
+            if (document.getElementById('yes1').checked || document.getElementById('no1').checked) { checked += 1 } else {no_submit.push(1)}
+            if (document.getElementById('yes2').checked || document.getElementById('no2').checked) { checked += 1 } else {no_submit.push(2)}
+            if (document.getElementById('yes3').checked || document.getElementById('no3').checked) { checked += 1 } else {no_submit.push(3)}
+            if (document.getElementById('yes4').checked || document.getElementById('no4').checked) { checked += 1 } else {no_submit.push(4)}
+            if (document.getElementById('yes5').checked || document.getElementById('no5').checked) { checked += 1 } else {no_submit.push(5)}
+            if (document.getElementById('yes6').checked || document.getElementById('no6').checked) { checked += 1 } else {no_submit.push(6)}
+            
+            if (document.getElementById('1 7').checked || document.getElementById('2 7').checked || document.getElementById('3 7').checked || document.getElementById('4 7').checked || document.getElementById('5 7').checked) { checked += 1 } else {no_submit.push(7)}
+
+            if (document.getElementById('1 8').checked || document.getElementById('2 8').checked || document.getElementById('3 8').checked || document.getElementById('4 8').checked || document.getElementById('5 8').checked) { checked += 1 } else {no_submit.push(8)}
+
+            if (document.getElementById('1 9').checked || document.getElementById('2 9').checked || document.getElementById('3 9').checked || document.getElementById('4 9').checked || document.getElementById('5 9').checked) { checked += 1 } else {no_submit.push(9)}
+
+            if (document.getElementById('1 10').checked || document.getElementById('2 10').checked || document.getElementById('3 10').checked || document.getElementById('4 10').checked || document.getElementById('5 10').checked) { checked += 1 } else {no_submit.push(10)}
+
+            if (checked == 0) {
+                alert("Fill in all questions.")
+                document.getElementById("pass_form").value = "No";
+            } 
+            }
+    </script>
 </body>
 </html>
