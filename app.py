@@ -25,6 +25,9 @@ def survey_start():
 def contact_us():
     return render_template("contact_us.html")
 
+@app.route('/ECG/')
+def ECG():
+    return render_template("ECG.html")
 
 @app.route('/survey_page/')
 def survey_page():
