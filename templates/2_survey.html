@@ -78,7 +78,7 @@
 
             if (document.getElementById('1 10').checked || document.getElementById('2 10').checked || document.getElementById('3 10').checked || document.getElementById('4 10').checked || document.getElementById('5 10').checked) { checked += 1 } else {no_submit.push(10)}
 
-            if (checked == 0) {
+            if (checked <= 10) {
                 alert("Fill in all questions.")
                 document.getElementById("pass_form").value = "No";
             } 
