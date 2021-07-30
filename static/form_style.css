@@ -54,12 +54,6 @@ p, li {
     margin-right: auto;
 }
 
-.likert li {
-    float: left;
-    list-style-type: none;
-    margin-left: 10px;
-}
-
 section {
     margin-right: auto;
     margin-left: 570px;
