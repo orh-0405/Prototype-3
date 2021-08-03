@@ -5,7 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Job Options!</title>
-    <link rel="stylesheet" href="../static/form_style.css">
+    <style>
+        body {
+    background: #fab1a0;
+        }
+        ol {
+    background: white;
+    text-align: left;
+    border: 1px black solid;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 35px;
+    padding-right: auto;
+    padding-top: 10px;
+    padding-bottom: 10px
+}
+h1 {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: white;
+    border: black solid 1px;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+    </style>
 </head>
 <body>
     <h1>Jobs under this category:</h1>
@@ -32,5 +61,25 @@
     
     {%endfor%}
     </ol>
+
+    <table class=center border=black>
+        <tr>
+            <td align=middle>
+                    <image src="../static/social_car" width=100px></image>
+            </td>
+            <td align=middle><image src="../static/practical_car.png" width=100px></image>
+            </td>
+            <td align=middle><image src="../static/data_car.png" width=100px></image>
+            </td> 
+            <td align=middle><image src="../static/creative_car.jpeg" width=100px></image>
+            </td>
+        </tr>
+        <tr>
+            <td align=middle>Social Car</td>
+            <td align=middle>Practical Car</td>
+            <td align=middle>Data Car</td>
+            <td align=middle>Creative Car</td>
+        </tr>
+    </table>
 </body>
 </html>
