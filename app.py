@@ -10,8 +10,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    
-    return render_template('home.html')
+    if get_user()  == "DLI":
+        return render_template('home.html', status = "DLI")
+    elif get_user()  != "DLI":
+        return render_template('home.html', status = get_user())
 
 @app.route('/about/')
 def about():
