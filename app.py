@@ -204,6 +204,7 @@ def chat_with_prof_menu():
     if user != "DLI":
         if get_account_type() == "stu":
             prof_names = list_of_prof()
+            print(prof_names)
             return render_template("chatwithprof_menu.html", names = prof_names)
         elif get_account_type() == "prof":
             stu_names = list_of_stu()

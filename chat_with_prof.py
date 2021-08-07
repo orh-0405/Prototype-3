@@ -63,9 +63,14 @@ def checkpassword(username, password):
 def get_account_type():
     db_file_name = os.path.join(db_file, "Users.db")
     db = get_db(db_file_name)
-    query = "SELECT acc FROM User WHERE Login = 1"
+    hostname = socket.gethostname()
+    ## getting the IP address using socket.gethostbyname() method
+    ip_address = socket.gethostbyname(hostname)
+    ## printing the hostname and ip_address
+    print(f"IP Address: {ip_address}")      
+    query = "SELECT acc FROM User WHERE Login = ?"
     try:
-        cursor = db.execute(query)
+        cursor = db.execute(query, (ip_address,))
         data = cursor.fetchone()
         db.close()
     except Error as e:
