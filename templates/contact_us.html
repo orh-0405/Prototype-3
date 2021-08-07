@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../static/test_style.css">
+    <title>Welcome!</title>
+</head>
+<body>
+    <h1 class="header">Welcome to Car-eer Highway!</h1>
+    <div class="wrapper">
+        <ul>
+    <li><a href="{{url_for('index')}}">Home</a></li> <!-- Home button -->
+    <li><a href="{{url_for('about')}}">About</a></li> <!-- About page -->
+    <li>ECG ▼<!-- Dropdown to  ECG Services -->
+                <ul>
+    <li><a href="{{url_for('ECG')}}">Overall</a></li> <!-- Overall page -->
+    <li>Education ▸<!-- Dropdown to specific education levels -->
+                        <ul>
+    <li>Secondary</li>
+    <li>JC/Poly</li>
+    <li>University</li>
+    </ul>
+    </li>
+    
+    <li><a href="{{url_for('survey_start')}}">Survey</a></li> <!-- ECG Survey -->
+    </ul>
+    </li>
+    
+    <li><a href="{{ url_for('chat_with_profs') }}">Chat W/ Profs</a>
+        <ul>
+        </ul>
+    </li>
+    <li><a href="{{url_for('contact_us')}}">Contact us!</a></li>
+    </ul>
+    </div>
+    <p class = "login">
+        <span class="align-right">
+            <a href="{{ url_for('login') }}">Login</a>
+        </span>
+        </p>
+    
+    <div class="test">
+        <p>We are a group of students who would like to create a website. This website collates many University requirements into one and will be able to recommend a certain course for the user based on the type of person they are. The website that we will be creating to do so will be titled “Car-eer Highway”.</p>
+        <br>
+        <p>The goal of this project is to help students with their Career Guidance. We believe that career guidance should start from an early age, as important choices in our education will affect our future. The website, titled “Car-eer Highway”, allows teenagers who are currently studying to use a few different functions of website, which include:</p>
+
+        <ol class="contact">
+            <li>Accessing the courses and streams of different Singapore Universities</li>
+            <li>Take a survey, “Car-eer” to find out more about jobs and courses suitable for oneself</li>
+            <li>Chatting with online Education and Career Guidance Counsellors about their queries with
+                ECG.</li>
+        </ol>
+
+        <br>
+        <p>We hope that teenagers of somewhat our age can explore more about career choices through the accessibility of our website, as we know that our website would serve as a better platform for others to use. We also would like our website to serve as a consolidated guide on which university to choose from, so that teenagers would save time as they do not need to browse through a variety of university sites to make an informed decision on which university to join. This also avoids the possibility that they end up missing a few universities that they are unaware of. We are also aware that teenagers cannot decide everything on their own without seeking professional help, so we are also enabling an option on our website where teenagers can consult ECG counsellors to clarify about any inquiries that they may have.</p>
+    </div>
+</body>
+
+</html>

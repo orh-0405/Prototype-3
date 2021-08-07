@@ -32,7 +32,7 @@ p {
 .likert li {
     float: left;
     list-style-type: none;
-    margin-left: auto;
+    margin-left: 10px;
     margin-right: auto;
     }
 
@@ -52,12 +52,6 @@ ol {
 p, li {
     margin-left: auto;
     margin-right: auto;
-}
-
-.likert li {
-    float: left;
-    list-style-type: none;
-    margin-left: 10px;
 }
 
 section {

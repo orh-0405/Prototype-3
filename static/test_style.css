@@ -113,3 +113,11 @@
         word-wrap: normal;  
         line-height: 20px;
     }
+
+    .contact li{
+        width: 80%;
+        margin-left: 60px;
+        background-color: #fff;
+        word-wrap: normal;  
+        line-height: 30px;
+    }
