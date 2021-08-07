@@ -33,13 +33,21 @@
     <li><a href="{{url_for('contact_us')}}">Contact us!</a></li>
     </ul>
     </div>
-    {%if status = %}
+    {%if status == "DLI"%}
     <p class = "login">
-        <span class="align-right">
+        <span class="login2">
             <a href="{{ url_for('login') }}">Login</a>
         </span>
-        </p>
-
+    </p>
+    {%else%}
+    <p class = "login">
+        <span class="login2">
+            <a href="">{{ status }}</a>
+            <p></p>
+            <a href="" id = "logout">LogOut</a>
+        </span>
+    </p>
+    {%endif%}
     <div class="test">
         <p><b>Welcome to Career Highway!</b> <br>This website is created to aid and guide you in choosing your career path.
             <br>

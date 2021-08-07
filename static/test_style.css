@@ -121,3 +121,6 @@
         word-wrap: normal;  
         line-height: 30px;
     }
+    .logout {
+        text-align: center;
+    }
