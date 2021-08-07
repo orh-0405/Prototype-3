@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../static/test_style.css">
+    <title>Welcome!</title>
+</head>
+<body>
+    <h1 class="header">Welcome to Car-eer Highway!</h1>
+    <div class="wrapper">
+        <ul>
+    <li><a href="{{url_for('index')}}">Home</a></li> <!-- Home button -->
+    <li><a href="{{url_for('about')}}">About</a></li> <!-- About page -->
+    <li>ECG ▼<!-- Dropdown to  ECG Services -->
+                <ul>
+    <li>Overall</li> <!-- Overall page -->
+    <li>Education ▸<!-- Dropdown to specific education levels -->
+                        <ul>
+    <li>Secondary</li>
+    <li>JC/Poly</li>
+    <li>University</li>
+    </ul>
+    </li>
+    
+    <li><a href="{{url_for('survey_start')}}">Survey</a></li> <!-- ECG Survey -->
+    </ul>
+    </li>
+    
+    <li><a href="{{ url_for('chat_with_profs') }}">Chat W/ Profs</a>
+        <ul>
+        </ul>
+    </li>
+    <li>Contact us!</li>
+    </ul>
+    </div>
+    <p class = "login">
+        <span class="align-right">
+            <a href="{{ url_for('login') }}">Login</a>
+        </span>
+        </p>
+    
+    <div class="test">
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis delectus itaque facilis numquam at culpa veniam eos. Delectus rem, accusantium, iusto similique a facere eius labore suscipit laudantium, excepturi est.</p>
+    </div>
+</body>
+
+</html>

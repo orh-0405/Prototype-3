@@ -33,11 +33,21 @@
     <li><a href="{{url_for('contact_us')}}">Contact us!</a></li>
     </ul>
     </div>
+    {%if status == "DLI"%}
     <p class = "login">
-        <span class="align-right">
+        <span class="login2">
             <a href="{{ url_for('login') }}">Login</a>
         </span>
-        </p>
+    </p>
+    {%else%}
+    <p class = "login">
+        <span class="login2">
+            <a href="">{{ status }}</a>
+            <p></p>
+            <a href="{{ url_for('logout') }}" id = "logout">LogOut</a>
+        </span>
+    </p>
+    {%endif%}
 
     <div class="test">
         <p>Having done a survey with students of age 13-16, we have collated responses about

@@ -25,19 +25,29 @@
     </ul>
     </li>
     
-    <li><a href="{{ url_for('chat_with_profs') }}">Chat W/ Profs</a>
+    <li><a href="{{ url_for('chat_with_prof_menu') }}">Chat W/ Profs</a>
         <ul>
         </ul>
     </li>
     <li><a href="{{url_for('contact_us')}}">Contact us!</a></li>
     </ul>
     </div>
+    {%if status == "DLI"%}
     <p class = "login">
-        <span class="align-right">
+        <span class="login2">
             <a href="{{ url_for('login') }}">Login</a>
         </span>
-        </p>
-    
+    </p>
+    {%else%}
+    <p class = "login">
+        <span class="login2">
+            <a href="">{{ status }}</a>
+            <p></p>
+            <a href="{{ url_for('logout') }}" id = "logout">LogOut</a>
+        </span>
+    </p>
+    {%endif%}
+
     <div class="test">
         <p>We are a group of students who would like to create a website. This website collates many University requirements into one and will be able to recommend a certain course for the user based on the type of person they are. The website that we will be creating to do so will be titled “Car-eer Highway”.</p>
         <br>

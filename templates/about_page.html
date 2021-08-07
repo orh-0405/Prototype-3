@@ -25,19 +25,28 @@
     </ul>
     </li>
     
-    <li><a href="{{ url_for('chat_with_profs') }}">Chat W/ Profs</a>
+    <li><a href="{{ url_for('chat_with_prof_menu') }}">Chat W/ Profs</a>
         <ul>
         </ul>
     </li>
     <li><a href="{{url_for('contact_us')}}">Contact us!</a></li>
     </ul>
     </div>
+    {%if status == "DLI"%}
     <p class = "login">
-        <span class="align-right">
+        <span class="login2">
             <a href="{{ url_for('login') }}">Login</a>
         </span>
-        </p>
-    
+    </p>
+    {%else%}
+    <p class = "login">
+        <span class="login2">
+            <a href="">{{ status }}</a>
+            <p></p>
+            <a href="{{ url_for('logout') }}" id = "logout">LogOut</a>
+        </span>
+    </p>
+    {%endif%}
     <div class="test">
         <p>Singapore’s education system puts a large emphasis that subject content is not the only thing students would learn in Singapore. One crucial part of the education system wokd be how all schools have Education and Career Guidance (ECG) session, to guide the students in their possible career options and their ambitions. Our careers do have a reliance on the path e take in our education, thus ECG is important. MOE has implemented ECG in all schools with the objectives of:</p>
         <ol class="contact">

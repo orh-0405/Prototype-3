@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../static/test_style.css">
+    
+    <title>ECG!</title>
+</head>
+<body>
+    <h1>Welcome to Car-eer Highway!</h1>
+    <div class="wrapper">
+        <ul>
+    <li><a href="{{url_for('index')}}">Home</a></li> <!-- Home button -->
+    <li><a href="{{url_for('about')}}">About</a></li> <!-- About page -->
+    <li>ECG ▼<!-- Dropdown to  ECG Services -->
+                <ul>
+    <li>Overall</li> <!-- Overall page -->
+    <li>Education ▸<!-- Dropdown to specific education levels -->
+                        <ul>
+    <li>Secondary</li>
+    <li>JC/Poly</li>
+    <li>University</li>
+    </ul>
+    </li>
+    
+    <li><a href="{{url_for('survey_start')}}">Survey</a></li> <!-- ECG Survey -->
+    </ul>
+    </li>
+    
+    <li><a href="{{ url_for('chat_with_prof_menu') }}">Chat W/ Profs</a>
+        <ul>
+        </ul>
+    </li>
+    <li>Contact us!</li>
+    </ul>
+    </div>
+    <p class = "login">
+        <span class="align-right">
+            <a href="{{ url_for('login') }}">Login</a>
+        </span>
+        </p>
+
+    <div class="test">
+        <p>Welcome to Career Highway! This website is created to aid and guide you in choosing your career path.
+            <br>
+            <br>
+            Through a short survey under 'ECG', wou will be able to know the type of car you are, which allows you to also access the courses open for the specific career option!
+            <br>
+            <br>
+            Under the 'Chat with Profs' tab, you would be able to chat with professors from different universities to ask them your queries and hopefully get some real-time responses!
+        </p>
+    </div>
+
+</body>
+</html>

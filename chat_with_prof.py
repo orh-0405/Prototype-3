@@ -1,7 +1,7 @@
 import os.path, sqlite3
 from sqlite3 import Error
 from datetime import datetime
-
+import socket
 from flask import templating
 
 curr_dir = os.path.dirname(__file__)
@@ -44,8 +44,13 @@ def checkpassword(username, password):
         return ("UNF")
     print("chat with profs username&pw", username, password)
     if password == data[0]:
-        query = "UPDATE main.User SET Login = 1 WHERE Name  = ?"
-        db.execute(query, (username,))
+        hostname = socket.gethostname()
+        ## getting the IP address using socket.gethostbyname() method
+        ip_address = socket.gethostbyname(hostname)
+        ## printing the hostname and ip_address
+        print(f"IP Address: {ip_address}")      
+        query = "UPDATE main.User SET Login = ? WHERE Name  = ?"
+        db.execute(query, (ip_address, username))
         db.commit()
         db.close()
         return("S")
@@ -78,9 +83,14 @@ def get_account_type():
 def get_user():
     db_file_name = os.path.join(db_file, "Users.db")
     db = get_db(db_file_name)
-    query = "SELECT Name FROM User WHERE Login = 1"
+    hostname = socket.gethostname()
+    ## getting the IP address using socket.gethostbyname() method
+    ip_address = socket.gethostbyname(hostname)
+    ## printing the hostname and ip_address
+    print(f"IP Address: {ip_address}") 
+    query = "SELECT Name FROM User WHERE Login = ?"
     try:
-        cursor = db.execute(query)
+        cursor = db.execute(query, (ip_address,))
         data = cursor.fetchone()
     except Error as e:
         db.close()
@@ -133,12 +143,17 @@ def new(name, message, db_name, stu):
     db.commit()
     db.close()
 
-def set_default():
+def log_out():
     db_file_name = os.path.join(db_file, "Users.db")
     db = get_db(db_file_name)
+    hostname = socket.gethostname()
+    ## getting the IP address using socket.gethostbyname() method
+    ip_address = socket.gethostbyname(hostname)
+    ## printing the hostname and ip_address
+    print(f"IP Address: {ip_address}") 
     try:
-        query = "UPDATE main.User SET Login = '0' WHERE Login = '1'"
-        db.execute(query)
+        query = "UPDATE main.User SET Login = '0' WHERE Login = ?"
+        db.execute(query, (ip_address,))
         db.commit()
         db.close()
     except:

@@ -1,0 +1,75 @@
+body {
+    background: #fab1a0;
+    text-align: center;
+}
+
+table, h1, p {
+    background: white;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px black solid;
+    width: 60%;
+    border-collapse: collapse;
+}
+
+h1 {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.likert li {
+    float: left;
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+ol {
+    background: white;
+    text-align: left;
+    border: 1px black solid;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 35px;
+    padding-right: auto;
+    padding-top: 10px;
+    padding-bottom: 10px
+}
+
+p, li {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.likert li {
+    float: left;
+    list-style-type: none;
+    margin-left: 10px;
+}
+
+section {
+    margin-right: auto;
+    margin-left: 570px;
+}
+
+section li{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+p, ul{
+    background-color: white;
+}
