@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from chat_with_prof import get_user, create_table, get_db, checkpassword, get_account_type, list_of_prof,list_of_stu, new, set_default, account_exist, new_user
+from chat_with_prof import get_user, create_table, get_db, checkpassword, get_account_type, list_of_prof,list_of_stu, log_out, new, log_out, account_exist, new_user
 import os.path
 from survey import open_survey
 import sqlite3
@@ -17,7 +17,11 @@ def index():
 
 @app.route('/about/')
 def about():
-    return render_template('about_page.html')
+    if get_user()  == "DLI":
+        return render_template('about_page.html', status = "DLI")
+    elif get_user()  != "DLI":
+        return render_template('about_page.html', status = get_user())
+
 
 @app.route('/survey_start/')
 def survey_start():
@@ -25,11 +29,18 @@ def survey_start():
 
 @app.route('/contact_us/')
 def contact_us():
-    return render_template("contact_us.html")
+    if get_user()  == "DLI":
+        return render_template('contact_us.html', status = "DLI")
+    elif get_user()  != "DLI":
+        return render_template('contact_us.html', status = get_user())
 
 @app.route('/ECG/')
 def ECG():
-    return render_template("ECG.html")
+    if get_user()  == "DLI":
+        return render_template('ECG.html', status = "DLI")
+    elif get_user()  != "DLI":
+        return render_template('ECG.html', status = get_user())
+
 
 @app.route('/survey_page/')
 def survey_page():
@@ -189,6 +200,7 @@ def job_info(job_chosen, db_name):
 @app.route('/chat_with_prof_menu/')
 def chat_with_prof_menu():
     user = get_user()
+    print(user)
     if user != "DLI":
         if get_account_type() == "stu":
             prof_names = list_of_prof()
@@ -300,10 +312,11 @@ def courses():
     return render_template("6_courses_new.html", data=data)
     #return render_template('test_courses.html', data=data)
 
+@app.route("/logout/")
+def logout():
+    log_out()
+    return(render_template('home.html', status = "DLI"))
+
 
 if __name__ == "__main__":
-    run_once = 0
-    if run_once == 0:
-        set_default()
-        run_once = 1
     app.run(debug=True)
