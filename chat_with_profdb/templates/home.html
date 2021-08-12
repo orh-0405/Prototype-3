@@ -13,7 +13,7 @@
     <li><a href="{{url_for('about')}}">About</a></li> <!-- About page -->
     <li>ECG ▼<!-- Dropdown to  ECG Services -->
                 <ul>
-    <li><a href="{{url_for('ECG')}}">Overall</a></li> <!-- Overall page -->
+    <li>Overall</li> <!-- Overall page -->
     <li>Education ▸<!-- Dropdown to specific education levels -->
                         <ul>
     <li>Secondary</li>
@@ -30,24 +30,15 @@
         <ul>
         </ul>
     </li>
-    <li><a href="{{url_for('contact_us')}}">Contact us!</a></li>
+    <li>Contact us!</li>
     </ul>
     </div>
-    {%if status == "DLI"%}
     <p class = "login">
-        <span class="login2">
+        <span class="align-right">
             <a href="{{ url_for('login') }}">Login</a>
         </span>
-    </p>
-    {%else%}
-    <p class = "login">
-        <span class="login2">
-            <a href="">{{ status }}</a>
-            <p></p>
-            <a href="{{ url_for('logout') }}" id = "logout">LogOut</a>
-        </span>
-    </p>
-    {%endif%}
+        </p>
+
     <div class="test">
         <p><b>Welcome to Career Highway!</b> <br>This website is created to aid and guide you in choosing your career path.
             <br>

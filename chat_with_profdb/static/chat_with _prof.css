@@ -1,0 +1,38 @@
+select {
+    width:200px;
+    /* Center vertically and horizontally */
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    margin: -25px 0 0 -25px;
+    font-size: 20px;
+    text-align: center;
+}
+
+option {
+    text-align: center;
+    font-size: 20px;
+}
+
+input {
+    font-size: 30px;
+    position: absolute;
+    bottom: 40%;
+    left: 50%;
+    margin: -25px 0 0 -25px;
+}
+
+.p1 {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.p2 {
+    text-align: center;
+    font-size: 30px;
+    position: absolute;
+    bottom: 60%;
+    left: 35%;
+    margin: -25px 0 0 -25px;
+}

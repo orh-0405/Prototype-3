@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="../static/chat_with _prof.css">
+</head>
+<body>
+    <p class = "p1"><b>Chat with profs menu</b></p>
+    <p class = "p2">Please choose who you want to chat with</p>
+    <form action="{{ url_for('chat_with_profs') }}">
+    <select name="name" size = "1">
+    {%for i in names%}
+    <option value="{{ i }}">{{ i }}</option>
+    {%endfor%}
+    </select>
+    <br>
+    <input type="submit" value="Go">
+    </form>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="../static/form_style.css">
+</head>
+<body>
+    <h1>Welcome to Car-eer!</h1>
+    <p>Take this short survey to know what type of Car you are!</p>
+    <table class=center border=black>
+        <tr>
+            <td align=middle>
+                    <image src="../static/social_car.jpeg" width=100px></image>
+            </td>
+            <td align=middle><image src="../static/practical_car.png" width=100px></image>
+            </td>
+            <td align=middle><image src="../static/data_car.png" width=100px></image>
+            </td> 
+            <td align=middle><image src="../static/creative_car.jpeg" width=100px></image>
+            </td>
+        </tr>
+        <tr>
+            <td align=middle>Social Car</td>
+            <td align=middle>Practical Car</td>
+            <td align=middle>Data Car</td>
+            <td align=middle>Creative Car</td>
+        </tr>
+    </table>
+    <form action="{{ url_for('survey_page') }}">
+        <br>
+        <input type="submit" value="Lets Go!">
+    </form>
+    <br>
+    <a href="{{ url_for('index') }}">Home</a>
+</body>
+</html>
